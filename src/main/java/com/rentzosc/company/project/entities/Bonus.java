@@ -1,7 +1,9 @@
 package com.rentzosc.company.project.entities;
 
+import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+@Entity
 public class Bonus {
     @Id
     Long bonusId;
