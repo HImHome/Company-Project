@@ -3,26 +3,27 @@ package com.rentzosc.company.project.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+
 import java.time.LocalDate;
 
 @Entity
 public class Employee {
     @Id
-    Long employeeId;
-    Long salary;
-    Long companyId;
-    String firstName;
-    String lastName;
-    String email;
-    LocalDate hireDate;
-    int vacationDays;
-    int age;
+    private Long employeeId;
+    private Long salary;
+    private Long companyId;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private LocalDate hireDate;
+    private int vacationDays;
+    private int employeeAge;
 
 
     public Employee() {
     }
 
-    public Employee(Long salary, Long companyId, String firstName, String lastName, String email, LocalDate hireDate, int vacationDays, int age) {
+    public Employee(Long salary, Long companyId, String firstName, String lastName, String email, LocalDate hireDate, int vacationDays, int employeeAge) {
         this.salary = salary;
         this.companyId = companyId;
         this.firstName = firstName;
@@ -30,7 +31,7 @@ public class Employee {
         this.email = email;
         this.hireDate = hireDate;
         this.vacationDays = vacationDays;
-        this.age = age;
+        this.employeeAge = employeeAge;
     }
 
     public Long getEmployeeId() {
@@ -97,11 +98,16 @@ public class Employee {
         this.vacationDays = vacationDays;
     }
 
-    public int getAge() {
-        return age;
+    public int getEmployeeAge() {
+        return employeeAge;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setEmployeeAge(int employeeAge) {
+        this.employeeAge = employeeAge;
+    }
+
+    @Override
+    public String toString() {
+        return "Employee{" + "employeeId=" + employeeId + ", salary=" + salary + ", companyId=" + companyId + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", hireDate=" + hireDate + ", vacationDays=" + vacationDays + ", employeeAge=" + employeeAge + '}';
     }
 }

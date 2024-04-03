@@ -3,13 +3,15 @@ package com.rentzosc.company.project.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+
 @Entity
+
 public class Company {
     @Id
-    Long companyId;
-    String companyName;
-    String companyAddress;
-    Long getCompanyPhoneNo;
+    private Long companyId;
+    private String companyName;
+    private String companyAddress;
+    private Long getCompanyPhoneNo;
 
 
     public Company() {
@@ -51,5 +53,10 @@ public class Company {
 
     public void setGetCompanyPhoneNo(Long getCompanyPhoneNo) {
         this.getCompanyPhoneNo = getCompanyPhoneNo;
+    }
+
+    @Override
+    public String toString() {
+        return "Company{" + "companyId=" + companyId + ", companyName='" + companyName + '\'' + ", companyAddress='" + companyAddress + '\'' + ", getCompanyPhoneNo=" + getCompanyPhoneNo + '}';
     }
 }

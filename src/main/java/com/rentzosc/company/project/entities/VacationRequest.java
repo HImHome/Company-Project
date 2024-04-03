@@ -8,11 +8,11 @@ import java.time.LocalDate;
 @Entity
 public class VacationRequest {
     @Id
-    Long vacationRequestId;
-    Long employeeId;
-    LocalDate startDate;
-    LocalDate endDate;
-    int vacationDuration;
+    private Long vacationRequestId;
+    private Long employeeId;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private int vacationDuration;
 
     public VacationRequest() {
     }
@@ -23,7 +23,6 @@ public class VacationRequest {
         this.endDate = endDate;
         this.vacationDuration = vacationDuration;
     }
-
 
     public Long getVacationRequestId() {
         return vacationRequestId;
@@ -63,5 +62,10 @@ public class VacationRequest {
 
     public void setVacationDuration(int vacationDuration) {
         this.vacationDuration = vacationDuration;
+    }
+
+    @Override
+    public String toString() {
+        return "VacationRequest{" + "vacationRequestId=" + vacationRequestId + ", employeeId=" + employeeId + ", startDate=" + startDate + ", endDate=" + endDate + ", vacationDuration=" + vacationDuration + '}';
     }
 }

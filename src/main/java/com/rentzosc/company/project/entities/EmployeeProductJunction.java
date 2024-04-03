@@ -1,11 +1,9 @@
 package com.rentzosc.company.project.entities;
 
 import jakarta.persistence.*;
-import lombok.Data;
 
 
 @Entity
-@Data
 public class EmployeeProductJunction {
     @Id
     @GeneratedValue
@@ -18,4 +16,40 @@ public class EmployeeProductJunction {
     @ManyToOne
     @JoinColumn
     private Product product;
+
+    public EmployeeProductJunction() {
+    }
+
+    public EmployeeProductJunction(Product product) {
+        this.product = product;
+    }
+
+    public Long getEmployeeProductJunctionId() {
+        return employeeProductJunctionId;
+    }
+
+    public void setEmployeeProductJunctionId(Long employeeProductJunctionId) {
+        this.employeeProductJunctionId = employeeProductJunctionId;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    @Override
+    public String toString() {
+        return "EmployeeProductJunction{" + "employeeProductJunctionId=" + employeeProductJunctionId + ", employee=" + employee + ", product=" + product + '}';
+    }
 }

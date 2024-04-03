@@ -3,12 +3,22 @@ package com.rentzosc.company.project.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+
 @Entity
 public class Bonus {
     @Id
-    Long bonusId;
-    Long employeeId;
-    Long companyId;
+    private Long bonusId;
+    private Long employeeId;
+    private Long companyId;
+
+
+    public Bonus() {
+    }
+
+    public Bonus(Long employeeId, Long companyId) {
+        this.employeeId = employeeId;
+        this.companyId = companyId;
+    }
 
     public Long getBonusId() {
         return bonusId;
@@ -32,5 +42,10 @@ public class Bonus {
 
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
+    }
+
+    @Override
+    public String toString() {
+        return "Bonus{" + "bonusId=" + bonusId + ", employeeId=" + employeeId + ", companyId=" + companyId + '}';
     }
 }

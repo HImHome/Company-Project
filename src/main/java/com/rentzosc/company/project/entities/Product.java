@@ -3,14 +3,14 @@ package com.rentzosc.company.project.entities;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
+
 @Entity
 public class Product {
     @Id
-    Long productId;
-    String productName;
-    String productDescription;
-    String productBarcode;
-
+    private Long productId;
+    private String productName;
+    private String productDescription;
+    private String productBarcode;
 
     public Product() {
     }
@@ -51,5 +51,10 @@ public class Product {
 
     public void setProductBarcode(String productBarcode) {
         this.productBarcode = productBarcode;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" + "productId=" + productId + ", productName='" + productName + '\'' + ", productDescription='" + productDescription + '\'' + ", productBarcode='" + productBarcode + '\'' + '}';
     }
 }
