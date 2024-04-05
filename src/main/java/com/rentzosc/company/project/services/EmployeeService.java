@@ -52,8 +52,7 @@ public class EmployeeService {
                     if (updatedEmployee.getCompanyId() != null) {
                         employee.setCompanyId(updatedEmployee.getCompanyId());
                     }
-                        employee.setEmployeeAge(updatedEmployee.getEmployeeAge());
-                    }
+
 
 
                     return employeeRepository.save(employee);
