@@ -10,11 +10,11 @@ import java.time.LocalDate;
 public class Employee {
     @Id
     private Long employeeId;
-    private Long salary;
     private Long companyId;
     private String firstName;
     private String lastName;
     private String email;
+    private Long salary;
     private LocalDate hireDate;
     private int vacationDays;
     private int employeeAge;

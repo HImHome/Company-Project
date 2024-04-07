@@ -1,72 +1,98 @@
 package com.rentzosc.company.project.services;
 
+import com.rentzosc.company.project.dtos.EmployeeDTO;
 import com.rentzosc.company.project.entities.Employee;
 import com.rentzosc.company.project.repositories.EmployeeRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
 
+    @Autowired
     public EmployeeService(EmployeeRepository employeeRepository) {
         this.employeeRepository = employeeRepository;
     }
 
-    public Employee addEmployee(Employee employee) {
-        return employeeRepository.save(employee);
+    private EmployeeDTO convertEmployeeToDto(Employee employee) {
+        EmployeeDTO employeeDTO = new EmployeeDTO();
+
+        employeeDTO.setEmployeeIdDTO(employee.getEmployeeId());
+        employeeDTO.setCompanyIdDTO(employee.getCompanyId());
+        employeeDTO.setFirstNameDTO(employee.getFirstName());
+        employeeDTO.setLastNameDTO(employee.getLastName());
+        employeeDTO.setEmailDTO(employee.getEmail());
+        employeeDTO.setSalaryDTO(employee.getSalary());
+        employeeDTO.setHireDateDTO(employee.getHireDate());
+        employeeDTO.setVacationDaysDTO(employee.getVacationDays());
+        employeeDTO.setEmployeeAgeDTO(employee.getEmployeeAge());
+
+        return employeeDTO;
     }
 
-    public Optional<Employee> getEmployeeById(Long employeeId) {
-        return employeeRepository.findById(employeeId);
+    private Employee convertDtoToEmployee(EmployeeDTO employeeDTO) {
+        Employee employee = new Employee();
+
+        employee.setCompanyId(employeeDTO.getCompanyIdDTO());
+        employee.setFirstName(employeeDTO.getFirstNameDTO());
+        employee.setLastName(employeeDTO.getLastNameDTO());
+        employee.setEmail(employeeDTO.getEmailDTO());
+        employee.setSalary(employeeDTO.getSalaryDTO());
+        employee.setHireDate(employeeDTO.getHireDateDTO());
+        employee.setVacationDays(employeeDTO.getVacationDaysDTO());
+        employee.setEmployeeAge(employeeDTO.getEmployeeAgeDTO());
+
+        return employee;
     }
 
-    public List<Employee> getAllEmployees(Employee employee) {
-        return employeeRepository.findAll();
+
+    public EmployeeDTO addEmployee(EmployeeDTO employeeDTO) {
+        Employee employee = convertDtoToEmployee(employeeDTO);
+        Employee savedEmployee = employeeRepository.save(employee);
+
+        return convertEmployeeToDto(savedEmployee);
+    }
+
+    public EmployeeDTO getEmployeeById(Long employeeId) {
+        Employee employee = employeeRepository.findById(employeeId).orElseThrow(() -> new RuntimeException("Employee " +
+                "with ID:" + employeeId + " not found."));
+
+        return convertEmployeeToDto(employee);
+    }
+
+    public List<EmployeeDTO> getAllEmployees() {
+        List<Employee> employees = employeeRepository.findAll();
+
+        return employees.stream().map(this::convertEmployeeToDto).collect(Collectors.toList());
     }
 
     public void deleteEmployee(Long employeeId) {
-        if (!employeeRepository.existsById(employeeId)){
+        if (!employeeRepository.existsById(employeeId)) {
             throw new RuntimeException("Employee with id: " + employeeId + " not found.");
         }
         employeeRepository.deleteById(employeeId);
     }
 
-    /*public Employee updateEmployee(Long employeeId, Employee updatedEmployee) {
-        return employeeRepository.findById(employeeId)
-                .map(employee -> {
-                    if (updatedEmployee.getFirstName() != null) {
-                        employee.setFirstName(updatedEmployee.getFirstName());
-                    }
-                    if (updatedEmployee.getLastName() != null) {
-                        employee.setLastName(updatedEmployee.getLastName());
-                    }
-                    if (updatedEmployee.getEmail() != null) {
-                        employee.setEmail(updatedEmployee.getEmail());
-                    }
-                    if (updatedEmployee.getSalary() != null) {
-                        employee.setSalary(updatedEmployee.getSalary());
-                    }
-                    if (updatedEmployee.getCompanyId() != null) {
-                        employee.setCompanyId(updatedEmployee.getCompanyId());
-                    }
 
+    public EmployeeDTO updateEmployee(Long employeeId, EmployeeDTO employeeDTO) {
+        Employee employee = employeeRepository
+                .findById(employeeId)
+                .orElseThrow(() -> new RuntimeException("Employee " + "with ID:" + employeeId + " not found."));
 
+        employee.setFirstName(employeeDTO.getFirstNameDTO());
+        employee.setLastName(employeeDTO.getLastNameDTO());
+        employee.setEmail(employeeDTO.getEmailDTO());
+        employee.setSalary(employeeDTO.getSalaryDTO());
+        employee.setHireDate(employeeDTO.getHireDateDTO());
+        employee.setVacationDays(employeeDTO.getVacationDaysDTO());
+        employee.setEmployeeAge(employee.getEmployeeAge());
 
-                    return employeeRepository.save(employee);
-                })
-                .orElseThrow(() -> new RuntimeException("Employee with id: " + employeeId + " not found."));
+        Employee updateEmployee = employeeRepository.save(employee);
+        return convertEmployeeToDto(updateEmployee);
     }
-
-    public Employee replaceEmployee(Long employeeId, Employee updatedEmployee) {
-        if (!employeeRepository.existsById(employeeId)) {
-            throw new RuntimeException("Employee with id: " + employeeId + " not found.");
-        }
-        updatedEmployee.setEmployeeId(employeeId);
-        return employeeRepository.save(updatedEmployee);
-    }*/
-
-
 }

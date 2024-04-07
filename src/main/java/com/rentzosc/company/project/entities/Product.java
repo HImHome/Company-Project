@@ -9,8 +9,9 @@ public class Product {
     @Id
     private Long productId;
     private String productName;
-    private String productDescription;
     private String productBarcode;
+    private String productDescription;
+
 
     public Product() {
     }
