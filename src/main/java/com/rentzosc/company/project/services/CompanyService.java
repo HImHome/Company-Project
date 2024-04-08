@@ -3,6 +3,8 @@ package com.rentzosc.company.project.services;
 import com.rentzosc.company.project.dtos.CompanyDTO;
 import com.rentzosc.company.project.entities.Company;
 import com.rentzosc.company.project.repositories.CompanyRepository;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,30 +13,22 @@ import java.util.stream.Collectors;
 @Service
 public class CompanyService {
     private final CompanyRepository companyRepository;
+    private final ModelMapper modelMapper;
 
-    public CompanyService(CompanyRepository companyRepository) {
+    @Autowired
+    public CompanyService(CompanyRepository companyRepository, ModelMapper modelMapper) {
         this.companyRepository = companyRepository;
+        this.modelMapper = modelMapper;
     }
+
 
     private CompanyDTO convertCompanyToDto(Company company) {
-        CompanyDTO companyDTO = new CompanyDTO();
-
-        companyDTO.setCompanyIdDTO(company.getCompanyId());
-        companyDTO.setCompanyNameDTO(company.getCompanyName());
-        companyDTO.setCompanyAddressDTO(company.getCompanyAddress());
-        companyDTO.setCompanyPhoneNoDTO(company.getGetCompanyPhoneNo());
-
-        return companyDTO;
+        return modelMapper.map(company, CompanyDTO.class);
     }
 
+
     private Company convertDtoToCompany(CompanyDTO companyDTO) {
-        Company company = new Company();
-
-        company.setCompanyName(companyDTO.getCompanyNameDTO());
-        company.setCompanyAddress(companyDTO.getCompanyAddressDTO());
-        company.setGetCompanyPhoneNo(companyDTO.getCompanyPhoneNoDTO());
-
-        return  company;
+        return modelMapper.map(companyDTO, Company.class);
     }
 
     public CompanyDTO addCompany(CompanyDTO companyDTO) {
@@ -69,12 +63,9 @@ public class CompanyService {
         Company company = companyRepository.findById(companyId).orElseThrow(() -> new RuntimeException("Company " +
                 "with ID:" + companyId + " not found."));
 
-        company.setCompanyName(companyDTO.getCompanyNameDTO());
-        company.setCompanyAddress(companyDTO.getCompanyAddressDTO());
-        company.setGetCompanyPhoneNo(companyDTO.getCompanyPhoneNoDTO());
+        modelMapper.map(companyDTO, company);
+        Company updatedCompany = companyRepository.save(company);
 
-        Company updateCompany = companyRepository.save(company);
-
-        return convertCompanyToDto(updateCompany);
+        return convertCompanyToDto(updatedCompany);
     }
 }
