@@ -3,6 +3,7 @@ package com.rentzosc.company.project.services;
 import com.rentzosc.company.project.dtos.EmployeeDTO;
 import com.rentzosc.company.project.entities.Employee;
 import com.rentzosc.company.project.repositories.EmployeeRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,41 +14,21 @@ import java.util.stream.Collectors;
 @Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
+    private final ModelMapper modelMapper;
+
 
     @Autowired
-    public EmployeeService(EmployeeRepository employeeRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, ModelMapper modelMapper) {
         this.employeeRepository = employeeRepository;
+        this.modelMapper = modelMapper;
     }
 
     private EmployeeDTO convertEmployeeToDto(Employee employee) {
-        EmployeeDTO employeeDTO = new EmployeeDTO();
-
-        employeeDTO.setEmployeeIdDTO(employee.getEmployeeId());
-        employeeDTO.setCompanyIdDTO(employee.getCompanyId());
-        employeeDTO.setFirstNameDTO(employee.getFirstName());
-        employeeDTO.setLastNameDTO(employee.getLastName());
-        employeeDTO.setEmailDTO(employee.getEmail());
-        employeeDTO.setSalaryDTO(employee.getSalary());
-        employeeDTO.setHireDateDTO(employee.getHireDate());
-        employeeDTO.setVacationDaysDTO(employee.getVacationDays());
-        employeeDTO.setEmployeeAgeDTO(employee.getEmployeeAge());
-
-        return employeeDTO;
+        return modelMapper.map(employee, EmployeeDTO.class);
     }
 
     private Employee convertDtoToEmployee(EmployeeDTO employeeDTO) {
-        Employee employee = new Employee();
-
-        employee.setCompanyId(employeeDTO.getCompanyIdDTO());
-        employee.setFirstName(employeeDTO.getFirstNameDTO());
-        employee.setLastName(employeeDTO.getLastNameDTO());
-        employee.setEmail(employeeDTO.getEmailDTO());
-        employee.setSalary(employeeDTO.getSalaryDTO());
-        employee.setHireDate(employeeDTO.getHireDateDTO());
-        employee.setVacationDays(employeeDTO.getVacationDaysDTO());
-        employee.setEmployeeAge(employeeDTO.getEmployeeAgeDTO());
-
-        return employee;
+        return modelMapper.map(employeeDTO, Employee.class);
     }
 
 
@@ -84,15 +65,9 @@ public class EmployeeService {
                 .findById(employeeId)
                 .orElseThrow(() -> new RuntimeException("Employee " + "with ID:" + employeeId + " not found."));
 
-        employee.setFirstName(employeeDTO.getFirstNameDTO());
-        employee.setLastName(employeeDTO.getLastNameDTO());
-        employee.setEmail(employeeDTO.getEmailDTO());
-        employee.setSalary(employeeDTO.getSalaryDTO());
-        employee.setHireDate(employeeDTO.getHireDateDTO());
-        employee.setVacationDays(employeeDTO.getVacationDaysDTO());
-        employee.setEmployeeAge(employee.getEmployeeAge());
+        modelMapper.map(employeeDTO,employee);
+        Employee updatedEmployee = employeeRepository.save(employee);
 
-        Employee updateEmployee = employeeRepository.save(employee);
-        return convertEmployeeToDto(updateEmployee);
+        return convertEmployeeToDto(updatedEmployee);
     }
 }

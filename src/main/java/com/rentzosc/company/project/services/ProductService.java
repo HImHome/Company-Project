@@ -3,6 +3,7 @@ package com.rentzosc.company.project.services;
 import com.rentzosc.company.project.dtos.ProductDTO;
 import com.rentzosc.company.project.entities.Product;
 import com.rentzosc.company.project.repositories.ProductRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,31 +12,19 @@ import java.util.stream.Collectors;
 @Service
 public class ProductService {
     private final ProductRepository productRepository;
+    private final ModelMapper modelMapper;
 
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, ModelMapper modelMapper) {
         this.productRepository = productRepository;
+        this.modelMapper = modelMapper;
     }
 
     private ProductDTO convertProductToDto(Product product) {
-        ProductDTO productDTO = new ProductDTO();
-
-        productDTO.setProductIdDTO(product.getProductId());
-        productDTO.setProductNameDTO(product.getProductName());
-        productDTO.setProductBarcodeDTO(product.getProductBarcode());
-        productDTO.setProductDescriptionDTO(product.getProductDescription());
-
-        return productDTO;
+        return modelMapper.map(product, ProductDTO.class);
     }
 
     private Product convertDtoToProduct(ProductDTO productDTO) {
-        Product product = new Product();
-
-        product.setProductName(productDTO.getProductNameDTO());
-        product.setProductBarcode(productDTO.getProductBarcodeDTO());
-        product.setProductDescription(productDTO.getProductDescriptionDTO());
-
-
-        return product;
+        return modelMapper.map(productDTO, Product.class);
     }
 
     public ProductDTO addCompany(ProductDTO productDTO) {
@@ -68,13 +57,13 @@ public class ProductService {
     }
 
     public ProductDTO updateProduct(Long productId, ProductDTO productDTO) {
-        Product product = new Product();
+        Product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("Product with " +
+                "ID:" + productId + " not found."));
 
-        product.setProductName(productDTO.getProductNameDTO());
-        product.setProductBarcode(productDTO.getProductBarcodeDTO());
-        product.setProductDescription(productDTO.getProductDescriptionDTO());
+        modelMapper.map(productDTO, product);
+        Product updatedProduct = productRepository.save(product);
 
-        return convertProductToDto(product);
+        return convertProductToDto(updatedProduct);
     }
 
 }
