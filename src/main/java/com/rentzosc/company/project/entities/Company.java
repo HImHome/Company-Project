@@ -1,20 +1,23 @@
 package com.rentzosc.company.project.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 
 @Entity
-
+@Table(name = "company")
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long companyId;
+    @Column(name = "name")
     private String companyName;
+
+    @Column(name = "address")
     private String companyAddress;
-    private Long getCompanyPhoneNo;
+
+    @Column(name = "phone")
+    private Long companyPhoneNo;
 
 
     public Company() {
@@ -23,7 +26,7 @@ public class Company {
     public Company(String companyName, String companyAddress, Long getCompanyPhoneNo) {
         this.companyName = companyName;
         this.companyAddress = companyAddress;
-        this.getCompanyPhoneNo = getCompanyPhoneNo;
+        this.companyPhoneNo = companyPhoneNo;
     }
 
     public Long getCompanyId() {
@@ -50,16 +53,16 @@ public class Company {
         this.companyAddress = companyAddress;
     }
 
-    public Long getGetCompanyPhoneNo() {
-        return getCompanyPhoneNo;
+    public Long getCompanyPhoneNo() {
+        return companyPhoneNo;
     }
 
-    public void setGetCompanyPhoneNo(Long getCompanyPhoneNo) {
-        this.getCompanyPhoneNo = getCompanyPhoneNo;
+    public void getCompanyPhoneNo(Long companyPhoneNo) {
+        this.companyPhoneNo = companyPhoneNo;
     }
 
     @Override
     public String toString() {
-        return "Company{" + "companyId=" + companyId + ", companyName='" + companyName + '\'' + ", companyAddress='" + companyAddress + '\'' + ", getCompanyPhoneNo=" + getCompanyPhoneNo + '}';
+        return "Company{" + "companyId=" + companyId + ", companyName='" + companyName + '\'' + ", companyAddress='" + companyAddress + '\'' + ", CompanyPhoneNo=" + companyPhoneNo + '}';
     }
 }
