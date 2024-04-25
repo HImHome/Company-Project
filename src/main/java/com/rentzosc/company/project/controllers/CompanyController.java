@@ -3,13 +3,16 @@ package com.rentzosc.company.project.controllers;
 import com.rentzosc.company.project.dtos.CompanyDTO;
 import com.rentzosc.company.project.entities.Company;
 import com.rentzosc.company.project.services.CompanyService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/companies")
@@ -31,11 +34,18 @@ public class CompanyController {
         return modelMapper.map(companyDTO, Company.class);
     }
 
-    @PostMapping
+   /*@PostMapping
     public ResponseEntity<CompanyDTO> addCompany(@RequestBody CompanyDTO companyDTO) {
         CompanyDTO savedCompanyDto = companyService.addCompany(companyDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedCompanyDto);
+    }*/
+
+    @PostMapping
+    public ResponseEntity<CompanyDTO> addCompany(@RequestBody CompanyDTO companyDTO) {
+        CompanyDTO savedCompanyDTO = companyService.addCompany(companyDTO);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedCompanyDTO);
     }
 
     @GetMapping("/{companyId}")

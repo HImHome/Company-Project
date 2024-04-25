@@ -33,8 +33,9 @@ public class CompanyService {
 
     public CompanyDTO addCompany(CompanyDTO companyDTO) {
         Company company = convertDtoToCompany(companyDTO);
+        System.out.println("Before saving: " + company);
         Company savedCompany = companyRepository.save(company);
-
+        System.out.println("After saving: " + savedCompany);
         return convertCompanyToDto(savedCompany);
     }
 

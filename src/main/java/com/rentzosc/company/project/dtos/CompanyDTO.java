@@ -4,12 +4,12 @@ public class CompanyDTO {
     private Long companyIdDTO;
     private String companyNameDTO;
     private String companyAddressDTO;
-    private Long companyPhoneNoDTO;
+    private String companyPhoneNoDTO;
 
     public CompanyDTO() {
     }
 
-    public CompanyDTO(String companyNameDTO, String companyAddressDTO, Long companyPhoneNoDTO) {
+    public CompanyDTO(String companyNameDTO, String companyAddressDTO, String companyPhoneNoDTO) {
         this.companyNameDTO = companyNameDTO;
         this.companyAddressDTO = companyAddressDTO;
         this.companyPhoneNoDTO = companyPhoneNoDTO;
@@ -39,11 +39,11 @@ public class CompanyDTO {
         this.companyAddressDTO = companyAddressDTO;
     }
 
-    public Long getCompanyPhoneNoDTO() {
+    public String getCompanyPhoneNoDTO() {
         return companyPhoneNoDTO;
     }
 
-    public void setCompanyPhoneNoDTO(Long companyPhoneNoDTO) {
+    public void setCompanyPhoneNoDTO(String companyPhoneNoDTO) {
         this.companyPhoneNoDTO = companyPhoneNoDTO;
     }
 

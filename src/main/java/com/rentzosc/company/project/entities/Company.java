@@ -17,13 +17,12 @@ public class Company {
     private String companyAddress;
 
     @Column(name = "phone")
-    private Long companyPhoneNo;
-
+    private String companyPhoneNo;
 
     public Company() {
     }
 
-    public Company(String companyName, String companyAddress, Long getCompanyPhoneNo) {
+    public Company(String companyName, String companyAddress, String companyPhoneNo) {
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.companyPhoneNo = companyPhoneNo;
@@ -53,11 +52,11 @@ public class Company {
         this.companyAddress = companyAddress;
     }
 
-    public Long getCompanyPhoneNo() {
+    public String setCompanyPhoneNo() {
         return companyPhoneNo;
     }
 
-    public void getCompanyPhoneNo(Long companyPhoneNo) {
+    public void getCompanyPhoneNo(String companyPhoneNo) {
         this.companyPhoneNo = companyPhoneNo;
     }
 
