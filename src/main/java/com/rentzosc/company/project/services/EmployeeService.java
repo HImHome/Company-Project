@@ -34,6 +34,7 @@ public class EmployeeService {
 
     public EmployeeDTO addEmployee(EmployeeDTO employeeDTO) {
         Employee employee = convertDtoToEmployee(employeeDTO);
+        log.info("Saving employee: {}", employee);
         Employee savedEmployee = employeeRepository.save(employee);
 
         return convertEmployeeToDto(savedEmployee);

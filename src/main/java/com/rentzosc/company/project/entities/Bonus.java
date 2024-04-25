@@ -1,12 +1,15 @@
 package com.rentzosc.company.project.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 
 @Entity
 public class Bonus {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bonusId;
     private Long employeeId;
     private Long companyId;

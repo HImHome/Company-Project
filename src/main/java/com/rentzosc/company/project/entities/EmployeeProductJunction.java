@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Entity
 public class EmployeeProductJunction {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long employeeProductJunctionId;
 
     @ManyToOne

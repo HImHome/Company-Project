@@ -1,6 +1,8 @@
 package com.rentzosc.company.project.entities;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 import java.time.LocalDate;
@@ -8,6 +10,8 @@ import java.time.LocalDate;
 @Entity
 public class VacationRequest {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long vacationRequestId;
     private Long employeeId;
     private LocalDate startDate;
