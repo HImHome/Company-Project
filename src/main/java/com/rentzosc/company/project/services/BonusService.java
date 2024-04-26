@@ -29,14 +29,14 @@ public class BonusService {
         return modelMapper.map(bonusDTO, Bonus.class);
     }
 
-    private BonusDTO addBonus (BonusDTO bonusDTO) {
+    public BonusDTO addBonus (BonusDTO bonusDTO) {
         Bonus bonus = converDtoToBonus(bonusDTO);
         Bonus savedBonus = bonusRepository.save(bonus);
 
         return convertBonusToDto(savedBonus);
     }
 
-    private BonusDTO getBonusById(Long bonusId) {
+    public BonusDTO getBonusById(Long bonusId) {
         Bonus bonus = bonusRepository.findById(bonusId).orElseThrow(() -> new RuntimeException("Bonus with ID: " + bonusId + " not found."));
 
         return convertBonusToDto(bonus);
@@ -56,12 +56,13 @@ public class BonusService {
         bonusRepository.deleteById(bonusId);
     }
 
-    public BonusDTO updateBonus(Long bonusId, BonusDTO bonusDTO) {
-        Bonus bonus = bonusRepository.findById(bonusId).orElseThrow(() -> new RuntimeException("Bonus with ID: " + bonusId + " not found."));
+    public BonusDTO updateBonus(Long bonusId, Bonus bonusDetails) {
+        return bonusRepository.findById(bonusId).map(bonus -> {
+            modelMapper.map(bonusDetails, bonus);
+            bonus.setBonusId(bonusId);
+            Bonus updatedBonus = bonusRepository.save(bonus);
 
-        modelMapper.map(bonusDTO, bonus);
-        Bonus updatedBonus = bonusRepository.save(bonus);
-
-        return convertBonusToDto(updatedBonus);
+            return modelMapper.map(updatedBonus, BonusDTO.class);
+        }).orElseThrow(() -> new RuntimeException("Bonus with id: " + bonusId + " not found."));
     }
 }

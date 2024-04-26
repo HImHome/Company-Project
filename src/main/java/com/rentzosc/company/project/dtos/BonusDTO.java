@@ -1,45 +1,61 @@
 package com.rentzosc.company.project.dtos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BonusDTO {
-    private Long bonusIdDTO;
-    private Long employeeIdDTO;
-    private Long companyIdDTO;
+    private Long bonusId;
+    private float amount;
+    private List<EmployeeDTO> employees;
+    private List<CompanyDTO> companies;
+
 
     public BonusDTO() {
+        this.employees = new ArrayList<>();
+        this.companies = new ArrayList<>();
     }
 
-
-    public BonusDTO(Long employeeIdDTO, Long companyIdDTO) {
-        this.employeeIdDTO = employeeIdDTO;
-        this.companyIdDTO = companyIdDTO;
+    public BonusDTO(Long bonusId, float amount, List<EmployeeDTO> employees, List<CompanyDTO> companies) {
+        this.bonusId = bonusId;
+        this.amount = amount;
+        this.employees = employees;
+        this.companies = companies;
     }
 
-    public Long getBonusIdDTO() {
-        return bonusIdDTO;
+    public Long getBonusId() {
+        return bonusId;
     }
 
-    public void setBonusIdDTO(Long bonusIdDTO) {
-        this.bonusIdDTO = bonusIdDTO;
+    public void setBonusId(Long bonusId) {
+        this.bonusId = bonusId;
     }
 
-    public Long getEmployeeIdDTO() {
-        return employeeIdDTO;
+    public float getAmount() {
+        return amount;
     }
 
-    public void setEmployeeIdDTO(Long employeeIdDTO) {
-        this.employeeIdDTO = employeeIdDTO;
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
-    public Long getCompanyIdDTO() {
-        return companyIdDTO;
+    public List<EmployeeDTO> getEmployees() {
+        return employees;
     }
 
-    public void setCompanyIdDTO(Long companyIdDTO) {
-        this.companyIdDTO = companyIdDTO;
+    public void setEmployees(List<EmployeeDTO> employees) {
+        this.employees = employees;
+    }
+
+    public List<CompanyDTO> getCompanies() {
+        return companies;
+    }
+
+    public void setCompanies(List<CompanyDTO> companies) {
+        this.companies = companies;
     }
 
     @Override
     public String toString() {
-        return "BonusDTO{" + "bonusIdDTO=" + bonusIdDTO + ", employeeIdDTO=" + employeeIdDTO + ", companyIdDTO=" + companyIdDTO + '}';
+        return "BonusDTO{" + "bonusId=" + bonusId + ", amount=" + amount + ", employees=" + employees + ", companies=" + companies + '}';
     }
 }

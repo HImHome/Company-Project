@@ -1,7 +1,9 @@
 package com.rentzosc.company.project.configuration;
 
+import com.rentzosc.company.project.dtos.BonusDTO;
 import com.rentzosc.company.project.dtos.CompanyDTO;
 import com.rentzosc.company.project.dtos.EmployeeDTO;
+import com.rentzosc.company.project.entities.Bonus;
 import com.rentzosc.company.project.entities.Company;
 import com.rentzosc.company.project.entities.Employee;
 import org.modelmapper.ModelMapper;
@@ -33,6 +35,13 @@ public class ModelMapperConfiguration {
             mapper.map(Employee::getVacationDays, EmployeeDTO::setVacationDaysDTO);
             mapper.map(Employee::getEmployeeAge, EmployeeDTO::setEmployeeAgeDTO);
             mapper.map(Employee::getCompany, EmployeeDTO::setCompanyDTO);
+        });
+
+        modelMapper.typeMap(Bonus.class, BonusDTO.class).addMappings(mapper -> {
+            mapper.map(Bonus::getBonusId, BonusDTO::setBonusId);
+            mapper.map(Bonus::getAmount, BonusDTO::setAmount);
+            mapper.map(Bonus::getCompanies, BonusDTO::setCompanies);
+            mapper.map(Bonus::getEmployees, BonusDTO::setEmployees);
         });
 
 

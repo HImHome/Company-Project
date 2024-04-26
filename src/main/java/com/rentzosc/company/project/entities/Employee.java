@@ -4,8 +4,10 @@ import jakarta.persistence.*;
 
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
+@Table(name = "employee")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,20 +32,24 @@ public class Employee {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "bonus_id")
+    private Bonus bonus;
+
 
     public Employee() {
     }
 
-
-    public Employee(Long salary, String firstName, String lastName, String email, LocalDate hireDate, String vacationDays, String employeeAge, Company company) {
-        this.salary = salary;
+    public Employee(String firstName, String lastName, String email, Long salary, LocalDate hireDate, String vacationDays, String employeeAge, Company company, Bonus bonus) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.salary = salary;
         this.hireDate = hireDate;
         this.vacationDays = vacationDays;
         this.employeeAge = employeeAge;
         this.company = company;
+        this.bonus = bonus;
     }
 
     public Long getEmployeeId() {
@@ -52,14 +58,6 @@ public class Employee {
 
     public void setEmployeeId(Long employeeId) {
         this.employeeId = employeeId;
-    }
-
-    public Long getSalary() {
-        return salary;
-    }
-
-    public void setSalary(Long salary) {
-        this.salary = salary;
     }
 
     public String getFirstName() {
@@ -84,6 +82,14 @@ public class Employee {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Long getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Long salary) {
+        this.salary = salary;
     }
 
     public LocalDate getHireDate() {
@@ -118,8 +124,16 @@ public class Employee {
         this.company = company;
     }
 
+    public Bonus getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(Bonus bonus) {
+        this.bonus = bonus;
+    }
+
     @Override
     public String toString() {
-        return "Employee{" + "employeeId=" + employeeId + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", salary=" + salary + ", hireDate=" + hireDate + ", vacationDays='" + vacationDays + '\'' + ", employeeAge='" + employeeAge + '\'' + ", company=" + company + '}';
+        return "Employee{" + "employeeId=" + employeeId + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", salary=" + salary + ", hireDate=" + hireDate + ", vacationDays='" + vacationDays + '\'' + ", employeeAge='" + employeeAge + '\'' + ", company=" + company + ", bonus=" + bonus + '}';
     }
 }

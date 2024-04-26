@@ -1,9 +1,9 @@
 package com.rentzosc.company.project.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -11,16 +11,22 @@ public class Bonus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bonusId;
-    private Long employeeId;
-    private Long companyId;
+    private float amount;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "bonus")
+    private List<Employee> employees;
 
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "bonus")
+    private List<Company> companies;
 
     public Bonus() {
+        this.employees = new ArrayList<>();
+        this.companies = new ArrayList<>();
     }
 
-    public Bonus(Long employeeId, Long companyId) {
-        this.employeeId = employeeId;
-        this.companyId = companyId;
+    public Bonus(float amount, List<Employee> employees, List<Company> companies) {
+        this.amount = amount;
+        this.employees = employees;
+        this.companies = companies;
     }
 
     public Long getBonusId() {
@@ -31,24 +37,32 @@ public class Bonus {
         this.bonusId = bonusId;
     }
 
-    public Long getEmployeeId() {
-        return employeeId;
+    public float getAmount() {
+        return amount;
     }
 
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
+    public void setAmount(float amount) {
+        this.amount = amount;
     }
 
-    public Long getCompanyId() {
-        return companyId;
+    public List<Employee> getEmployees() {
+        return employees;
     }
 
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public List<Company> getCompanies() {
+        return companies;
+    }
+
+    public void setCompanies(List<Company> companies) {
+        this.companies = companies;
     }
 
     @Override
     public String toString() {
-        return "Bonus{" + "bonusId=" + bonusId + ", employeeId=" + employeeId + ", companyId=" + companyId + '}';
+        return "Bonus{" + "bonusId=" + bonusId + ", amount=" + amount + ", employees=" + employees + ", companies=" + companies + '}';
     }
 }

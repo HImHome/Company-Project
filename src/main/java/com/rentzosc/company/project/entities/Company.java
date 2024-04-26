@@ -26,19 +26,29 @@ public class Company {
     @OneToMany(mappedBy = "company")
     private List<Employee> employees;
 
+    @OneToMany(mappedBy = "company")
+    private List<Bonus> bonuses;
+
+
     public Company() {
-        this.employees =new ArrayList<>();
+
+        this.employees = new ArrayList<>();
+        this.bonuses = new ArrayList<>();
     }
 
-    public Company(String companyName, String companyAddress, String companyPhoneNo, List<Employee> employees) {
+    public Company(String companyName, String companyAddress, String companyPhoneNo, List<Employee> employees,
+                   List<Bonus> bonuses) {
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.companyPhoneNo = companyPhoneNo;
         this.employees = employees;
+        this.bonuses = bonuses;
     }
 
 
-    public Long getCompanyId() { return companyId; }
+    public Long getCompanyId() {
+        return companyId;
+    }
 
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
@@ -68,9 +78,24 @@ public class Company {
         this.companyPhoneNo = companyPhoneNo;
     }
 
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
+    public List<Bonus> getBonuses() {
+        return bonuses;
+    }
+
+    public void setBonuses(List<Bonus> bonuses) {
+        this.bonuses = bonuses;
+    }
 
     @Override
     public String toString() {
-        return "Company{" + "companyId=" + companyId + ", companyName='" + companyName + '\'' + ", companyAddress='" + companyAddress + '\'' + ", companyPhoneNo='" + companyPhoneNo + '\'' + ", employees=" + employees + '}';
+        return "Company{" + "companyId=" + companyId + ", companyName='" + companyName + '\'' + ", companyAddress='" + companyAddress + '\'' + ", companyPhoneNo='" + companyPhoneNo + '\'' + ", employees=" + employees + ", bonuses=" + bonuses + '}';
     }
 }

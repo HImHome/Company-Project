@@ -9,10 +9,8 @@ public class CompanyDTO {
     private String companyNameDTO;
     private String companyAddressDTO;
     private String companyPhoneNoDTO;
-
-    public List<EmployeeDTO> getEmployees() {
-        return employees;
-    }
+    private List<EmployeeDTO> employees;
+    private BonusDTO bonus;
 
 
     public CompanyDTO() {
@@ -20,11 +18,12 @@ public class CompanyDTO {
     }
 
     public CompanyDTO(String companyNameDTO, String companyAddressDTO, String companyPhoneNoDTO,
-                      List<EmployeeDTO> employees) {
+                      List<EmployeeDTO> employees,BonusDTO bonus) {
         this.companyNameDTO = companyNameDTO;
         this.companyAddressDTO = companyAddressDTO;
         this.companyPhoneNoDTO = companyPhoneNoDTO;
         this.employees = employees;
+        this.bonus = bonus;
     }
 
     public Long getCompanyIdDTO() {
@@ -54,18 +53,29 @@ public class CompanyDTO {
     public String getCompanyPhoneNoDTO() {
         return companyPhoneNoDTO;
     }
+
     public void setCompanyPhoneNoDTO(String companyPhoneNoDTO) {
         this.companyPhoneNoDTO = companyPhoneNoDTO;
+    }
+
+    public List<EmployeeDTO> getEmployees() {
+        return employees;
     }
 
     public void setEmployees(List<EmployeeDTO> employees) {
         this.employees = employees;
     }
 
-    private List<EmployeeDTO> employees;
+    public BonusDTO getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(BonusDTO bonus) {
+        this.bonus = bonus;
+    }
 
     @Override
     public String toString() {
-        return "CompanyDTO{" + "companyIdDTO=" + companyIdDTO + ", companyNameDTO='" + companyNameDTO + '\'' + ", companyAddressDTO='" + companyAddressDTO + '\'' + ", companyPhoneNoDTO='" + companyPhoneNoDTO + '\'' + ", employees=" + employees + '}';
+        return "CompanyDTO{" + "companyIdDTO=" + companyIdDTO + ", companyNameDTO='" + companyNameDTO + '\'' + ", companyAddressDTO='" + companyAddressDTO + '\'' + ", companyPhoneNoDTO='" + companyPhoneNoDTO + '\'' + ", employees=" + employees + ", bonus=" + bonus + '}';
     }
 }
