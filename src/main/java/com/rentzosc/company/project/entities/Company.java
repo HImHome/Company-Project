@@ -2,6 +2,9 @@ package com.rentzosc.company.project.entities;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 @Entity
 @Table(name = "company")
@@ -20,18 +23,22 @@ public class Company {
     @Column(name = "phone")
     private String companyPhoneNo;
 
+    @OneToMany(mappedBy = "company")
+    private List<Employee> employees;
+
     public Company() {
+        this.employees =new ArrayList<>();
     }
 
-    public Company(String companyName, String companyAddress, String companyPhoneNo) {
+    public Company(String companyName, String companyAddress, String companyPhoneNo, List<Employee> employees) {
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.companyPhoneNo = companyPhoneNo;
+        this.employees = employees;
     }
 
-    public Long getCompanyId() {
-        return companyId;
-    }
+
+    public Long getCompanyId() { return companyId; }
 
     public void setCompanyId(Long companyId) {
         this.companyId = companyId;
@@ -62,9 +69,8 @@ public class Company {
     }
 
 
-
     @Override
     public String toString() {
-        return "Company{" + "companyId=" + companyId + ", companyName='" + companyName + '\'' + ", companyAddress='" + companyAddress + '\'' + ", CompanyPhoneNo=" + companyPhoneNo + '}';
+        return "Company{" + "companyId=" + companyId + ", companyName='" + companyName + '\'' + ", companyAddress='" + companyAddress + '\'' + ", companyPhoneNo='" + companyPhoneNo + '\'' + ", employees=" + employees + '}';
     }
 }

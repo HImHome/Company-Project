@@ -1,9 +1,6 @@
 package com.rentzosc.company.project.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 
 import java.time.LocalDate;
@@ -12,29 +9,41 @@ import java.time.LocalDate;
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long employeeId;
-    private Long companyId;
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
+    @Column(name = "email")
     private String email;
+    @Column(name = "salary")
     private Long salary;
+    @Column(name = "hire_date")
     private LocalDate hireDate;
-    private int vacationDays;
-    private int employeeAge;
+    @Column(name = "vacation_days")
+    private String vacationDays;
+    @Column(name = "age")
+    private String employeeAge;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "company_id")
+    private Company company;
 
 
     public Employee() {
     }
 
-    public Employee(Long salary, Long companyId, String firstName, String lastName, String email, LocalDate hireDate, int vacationDays, int employeeAge) {
+
+    public Employee(Long salary, String firstName, String lastName, String email, LocalDate hireDate, String vacationDays, String employeeAge, Company company) {
         this.salary = salary;
-        this.companyId = companyId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.hireDate = hireDate;
         this.vacationDays = vacationDays;
         this.employeeAge = employeeAge;
+        this.company = company;
     }
 
     public Long getEmployeeId() {
@@ -51,14 +60,6 @@ public class Employee {
 
     public void setSalary(Long salary) {
         this.salary = salary;
-    }
-
-    public Long getCompanyId() {
-        return companyId;
-    }
-
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
     }
 
     public String getFirstName() {
@@ -93,24 +94,32 @@ public class Employee {
         this.hireDate = hireDate;
     }
 
-    public int getVacationDays() {
+    public String getVacationDays() {
         return vacationDays;
     }
 
-    public void setVacationDays(int vacationDays) {
+    public void setVacationDays(String vacationDays) {
         this.vacationDays = vacationDays;
     }
 
-    public int getEmployeeAge() {
+    public String getEmployeeAge() {
         return employeeAge;
     }
 
-    public void setEmployeeAge(int employeeAge) {
+    public void setEmployeeAge(String employeeAge) {
         this.employeeAge = employeeAge;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     @Override
     public String toString() {
-        return "Employee{" + "employeeId=" + employeeId + ", salary=" + salary + ", companyId=" + companyId + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", hireDate=" + hireDate + ", vacationDays=" + vacationDays + ", employeeAge=" + employeeAge + '}';
+        return "Employee{" + "employeeId=" + employeeId + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", salary=" + salary + ", hireDate=" + hireDate + ", vacationDays='" + vacationDays + '\'' + ", employeeAge='" + employeeAge + '\'' + ", company=" + company + '}';
     }
 }

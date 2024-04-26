@@ -1,30 +1,32 @@
 package com.rentzosc.company.project.dtos;
 
+
 import java.time.LocalDate;
 
 public class EmployeeDTO {
     private Long employeeIdDTO;
     private Long salaryDTO;
-    private Long companyIdDTO;
     private String firstNameDTO;
     private String lastNameDTO;
     private String emailDTO;
     private LocalDate hireDateDTO;
-    private int vacationDaysDTO;
-    private int employeeAgeDTO;
+    private String vacationDaysDTO;
+    private String employeeAgeDTO;
+    private CompanyDTO companyDTO;
 
     public EmployeeDTO() {
     }
 
-    public EmployeeDTO(Long salaryDTO, Long companyIdDTO, String firstNameDTO, String lastNameDTO, String emailDTO, LocalDate hireDateDTO, int vacationDaysDTO, int employeeAgeDTO) {
+    public EmployeeDTO(Long salaryDTO, String firstNameDTO, String lastNameDTO, String emailDTO,
+                       LocalDate hireDateDTO, String vacationDaysDTO, String employeeAgeDTO, CompanyDTO companyDTO) {
         this.salaryDTO = salaryDTO;
-        this.companyIdDTO = companyIdDTO;
         this.firstNameDTO = firstNameDTO;
         this.lastNameDTO = lastNameDTO;
         this.emailDTO = emailDTO;
         this.hireDateDTO = hireDateDTO;
         this.vacationDaysDTO = vacationDaysDTO;
         this.employeeAgeDTO = employeeAgeDTO;
+        this.companyDTO = companyDTO;
     }
 
     public Long getEmployeeIdDTO() {
@@ -41,14 +43,6 @@ public class EmployeeDTO {
 
     public void setSalaryDTO(Long salaryDTO) {
         this.salaryDTO = salaryDTO;
-    }
-
-    public Long getCompanyIdDTO() {
-        return companyIdDTO;
-    }
-
-    public void setCompanyIdDTO(Long companyIdDTO) {
-        this.companyIdDTO = companyIdDTO;
     }
 
     public String getFirstNameDTO() {
@@ -83,24 +77,32 @@ public class EmployeeDTO {
         this.hireDateDTO = hireDateDTO;
     }
 
-    public int getVacationDaysDTO() {
+    public String getVacationDaysDTO() {
         return vacationDaysDTO;
     }
 
-    public void setVacationDaysDTO(int vacationDaysDTO) {
+    public void setVacationDaysDTO(String vacationDaysDTO) {
         this.vacationDaysDTO = vacationDaysDTO;
     }
 
-    public int getEmployeeAgeDTO() {
+    public String getEmployeeAgeDTO() {
         return employeeAgeDTO;
     }
 
-    public void setEmployeeAgeDTO(int employeeAgeDTO) {
+    public void setEmployeeAgeDTO(String employeeAgeDTO) {
         this.employeeAgeDTO = employeeAgeDTO;
+    }
+
+    public CompanyDTO getCompanyDTO() {
+        return companyDTO;
+    }
+
+    public void setCompanyDTO(CompanyDTO companyDTO) {
+        this.companyDTO = companyDTO;
     }
 
     @Override
     public String toString() {
-        return "EmployeeDTO{" + "employeeIdDTO=" + employeeIdDTO + ", salaryDTO=" + salaryDTO + ", companyIdDTO=" + companyIdDTO + ", firstNameDTO='" + firstNameDTO + '\'' + ", lastNameDTO='" + lastNameDTO + '\'' + ", emailDTO='" + emailDTO + '\'' + ", hireDateDTO=" + hireDateDTO + ", vacationDaysDTO=" + vacationDaysDTO + ", employeeAgeDTO=" + employeeAgeDTO + '}';
+        return "EmployeeDTO{" + "employeeIdDTO=" + employeeIdDTO + ", salaryDTO=" + salaryDTO + ", firstNameDTO='" + firstNameDTO + '\'' + ", lastNameDTO='" + lastNameDTO + '\'' + ", emailDTO='" + emailDTO + '\'' + ", hireDateDTO=" + hireDateDTO + ", vacationDaysDTO='" + vacationDaysDTO + '\'' + ", employeeAgeDTO='" + employeeAgeDTO + '\'' + ", companyDTO=" + companyDTO + '}';
     }
 }

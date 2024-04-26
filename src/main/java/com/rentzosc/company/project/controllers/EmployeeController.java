@@ -57,7 +57,7 @@ public class EmployeeController {
         }
     }
 
-    @PutMapping("/{employeeId}")
+    @PatchMapping("/{employeeId}")
     public ResponseEntity<EmployeeDTO> updateEmployee(@PathVariable Long employeeId, @RequestBody EmployeeDTO employeeDTO) {
         EmployeeDTO updatedEmployeeDto = employeeService.updateEmployee(employeeId, employeeDTO);
 

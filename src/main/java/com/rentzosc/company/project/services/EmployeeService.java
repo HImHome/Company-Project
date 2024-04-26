@@ -3,6 +3,7 @@ package com.rentzosc.company.project.services;
 import com.rentzosc.company.project.dtos.EmployeeDTO;
 import com.rentzosc.company.project.entities.Employee;
 import com.rentzosc.company.project.repositories.EmployeeRepository;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class EmployeeService {
         return modelMapper.map(employeeDTO, Employee.class);
     }
 
-
+    @Transactional
     public EmployeeDTO addEmployee(EmployeeDTO employeeDTO) {
         Employee employee = convertDtoToEmployee(employeeDTO);
         Employee savedEmployee = employeeRepository.save(employee);

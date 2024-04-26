@@ -33,13 +33,13 @@ public class CompanyController {
     }
 
    @PostMapping
-    public ResponseEntity<Company> addCompany(@RequestBody Company company) {
+    public ResponseEntity<CompanyDTO> addCompany(@RequestBody Company company) {
        return ResponseEntity.ok(companyService.addCompany(company));
     }
 
 
     @GetMapping("/{companyId}")
-    public ResponseEntity<Company> getCompanyById(@PathVariable Long companyId) {
+    public ResponseEntity<CompanyDTO> getCompanyById(@PathVariable Long companyId) {
         return ResponseEntity.ok(companyService.getCompanyById(companyId));
     }
 
@@ -53,14 +53,17 @@ public class CompanyController {
         }
     }
 
-    @PutMapping("/{companyId}")
-    public ResponseEntity<Company> updateCompany(@PathVariable Long companyId, @RequestBody Company company) {
-        return ResponseEntity.ok(companyService.updateCompany(companyId, company));
+    @PatchMapping("/{companyId}")
+    public ResponseEntity<CompanyDTO> updateCompany(@PathVariable Long companyId, @RequestBody CompanyDTO companyDTO) {
+        Company company = convertDtoToCompany(companyDTO);
+        CompanyDTO updatedCompany = companyService.updateCompany(companyId,company);
+
+        return ResponseEntity.ok(updatedCompany);
     }
 
 
     @GetMapping
-    public ResponseEntity<List<Company>> getAllCompanies() {
+    public ResponseEntity<List<CompanyDTO>> getAllCompanies() {
         return ResponseEntity.ok(companyService.getAllCompanies());
     }
 }
