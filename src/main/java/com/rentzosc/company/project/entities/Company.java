@@ -16,6 +16,7 @@ public class Company {
     @Column(name = "address")
     private String companyAddress;
 
+
     @Column(name = "phone")
     private String companyPhoneNo;
 
@@ -52,13 +53,15 @@ public class Company {
         this.companyAddress = companyAddress;
     }
 
-    public String setCompanyPhoneNo() {
+    public String getCompanyPhoneNo() {
         return companyPhoneNo;
     }
 
-    public void getCompanyPhoneNo(String companyPhoneNo) {
+    public void setCompanyPhoneNo(String companyPhoneNo) {
         this.companyPhoneNo = companyPhoneNo;
     }
+
+
 
     @Override
     public String toString() {

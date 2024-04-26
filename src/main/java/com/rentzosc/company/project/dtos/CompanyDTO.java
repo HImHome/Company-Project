@@ -6,6 +6,8 @@ public class CompanyDTO {
     private String companyAddressDTO;
     private String companyPhoneNoDTO;
 
+
+
     public CompanyDTO() {
     }
 
@@ -42,10 +44,11 @@ public class CompanyDTO {
     public String getCompanyPhoneNoDTO() {
         return companyPhoneNoDTO;
     }
-
     public void setCompanyPhoneNoDTO(String companyPhoneNoDTO) {
         this.companyPhoneNoDTO = companyPhoneNoDTO;
     }
+
+
 
     @Override
     public String toString() {

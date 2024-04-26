@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class CompanyService {
@@ -27,46 +26,38 @@ public class CompanyService {
     }
 
 
-    private Company convertDtoToCompany(CompanyDTO companyDTO) {
+    public Company convertDtoToCompany(CompanyDTO companyDTO) {
         return modelMapper.map(companyDTO, Company.class);
+
     }
 
-    public CompanyDTO addCompany(CompanyDTO companyDTO) {
-        Company company = convertDtoToCompany(companyDTO);
-        System.out.println("Before saving: " + company);
-        Company savedCompany = companyRepository.save(company);
-        System.out.println("After saving: " + savedCompany);
-        return convertCompanyToDto(savedCompany);
+    public Company addCompany(Company company) {
+        return companyRepository.save(company);
+
     }
 
-    public CompanyDTO getCompanyById(Long companyId) {
-        Company company = companyRepository.findById(companyId).orElseThrow(() -> new RuntimeException("Company " +
+    public Company getCompanyById(Long companyId) {
+        return companyRepository.findById(companyId).orElseThrow(() -> new RuntimeException("Company " +
                 "with ID:" + companyId + " not found."));
 
-        return convertCompanyToDto(company);
     }
 
-    public List<CompanyDTO> getAllCompanies() {
-        List<Company> company = companyRepository.findAll();
-
-        return company.stream().map(this::convertCompanyToDto).collect(Collectors.toList());
+    public List<Company> getAllCompanies() {
+        return companyRepository.findAll();
     }
 
     public void deleteCompany(Long companyId) {
-        if (!companyRepository.existsById(companyId)) {
-            throw new RuntimeException("Company " + "with ID:" + companyId + " not found.");
+        if (companyRepository.existsById(companyId)) {
+            companyRepository.deleteById(companyId);
+        } else {
+            throw new RuntimeException("Employee with id: " + companyId + " not found.");
         }
-
-        companyRepository.deleteById(companyId);
     }
 
-    public CompanyDTO updateCompany(Long companyId, CompanyDTO companyDTO) {
-        Company company = companyRepository.findById(companyId).orElseThrow(() -> new RuntimeException("Company " +
-                "with ID:" + companyId + " not found."));
-
-        modelMapper.map(companyDTO, company);
-        Company updatedCompany = companyRepository.save(company);
-
-        return convertCompanyToDto(updatedCompany);
+    public Company updateCompany(Long companyId, Company companyDetails) {
+        return companyRepository.findById(companyId).map(company -> {
+            modelMapper.map(companyDetails, company);
+            return companyRepository.save(company);
+        }).orElseThrow(() -> new RuntimeException("Employee with id: " + companyId + " not found."));
     }
 }
