@@ -1,6 +1,8 @@
 package com.rentzosc.company.project.services;
 
+import com.rentzosc.company.project.dtos.CompanyDTO;
 import com.rentzosc.company.project.dtos.EmployeeDTO;
+import com.rentzosc.company.project.entities.Company;
 import com.rentzosc.company.project.entities.Employee;
 import com.rentzosc.company.project.repositories.EmployeeRepository;
 import jakarta.transaction.Transactional;
@@ -61,14 +63,13 @@ public class EmployeeService {
     }
 
 
-    public EmployeeDTO updateEmployee(Long employeeId, EmployeeDTO employeeDTO) {
-        Employee employee = employeeRepository
-                .findById(employeeId)
-                .orElseThrow(() -> new RuntimeException("Employee " + "with ID:" + employeeId + " not found."));
+    public EmployeeDTO updateEmployee(Long employeeId, Employee employeeDetails) {
+        return employeeRepository.findById(employeeId).map(employee -> {
+            modelMapper.map(employeeDetails, employee);
+            employee.setEmployeeId(employeeId);
+            Employee updatedCompany = employeeRepository.save(employee);
 
-        modelMapper.map(employeeDTO,employee);
-        Employee updatedEmployee = employeeRepository.save(employee);
-
-        return convertEmployeeToDto(updatedEmployee);
+            return modelMapper.map(updatedCompany, EmployeeDTO.class);
+        }).orElseThrow(() -> new RuntimeException("Company with id: " + employeeId + " not found."));
     }
 }

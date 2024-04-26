@@ -59,7 +59,8 @@ public class EmployeeController {
 
     @PatchMapping("/{employeeId}")
     public ResponseEntity<EmployeeDTO> updateEmployee(@PathVariable Long employeeId, @RequestBody EmployeeDTO employeeDTO) {
-        EmployeeDTO updatedEmployeeDto = employeeService.updateEmployee(employeeId, employeeDTO);
+        Employee employee = convertDtoToEmployee(employeeDTO);
+        EmployeeDTO updatedEmployeeDto = employeeService.updateEmployee(employeeId, employee);
 
         return ResponseEntity.ok(updatedEmployeeDto);
     }

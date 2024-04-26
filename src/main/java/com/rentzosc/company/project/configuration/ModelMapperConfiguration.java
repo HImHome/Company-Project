@@ -15,7 +15,7 @@ public class ModelMapperConfiguration {
     public ModelMapper modelMapper() {
         ModelMapper modelMapper = new ModelMapper();
 
-        // Create and configure a type map for Company to CompanyDTO
+
         modelMapper.typeMap(Company.class, CompanyDTO.class).addMappings(mapper -> {
             mapper.map(Company::getCompanyId, CompanyDTO::setCompanyIdDTO);
             mapper.map(Company::getCompanyName, CompanyDTO::setCompanyNameDTO);
@@ -23,7 +23,6 @@ public class ModelMapperConfiguration {
             mapper.map(Company::getCompanyPhoneNo, CompanyDTO::setCompanyPhoneNoDTO);
         });
 
-        // Employee to EmployeeDTO mapping configuration
         modelMapper.typeMap(Employee.class, EmployeeDTO.class).addMappings(mapper -> {
             mapper.map(Employee::getEmployeeId, EmployeeDTO::setEmployeeIdDTO);
             mapper.map(Employee::getFirstName, EmployeeDTO::setFirstNameDTO);
