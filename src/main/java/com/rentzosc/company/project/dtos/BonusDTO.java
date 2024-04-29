@@ -1,25 +1,19 @@
 package com.rentzosc.company.project.dtos;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class BonusDTO {
     private Long bonusId;
     private float amount;
-    private List<EmployeeDTO> employees;
-    private List<CompanyDTO> companies;
+    private CompanyDTO companyDTO;
 
+    private EmployeeDTO employeeDTO;
 
     public BonusDTO() {
-        this.employees = new ArrayList<>();
-        this.companies = new ArrayList<>();
     }
 
-    public BonusDTO(Long bonusId, float amount, List<EmployeeDTO> employees, List<CompanyDTO> companies) {
-        this.bonusId = bonusId;
+    public BonusDTO(float amount, CompanyDTO companyDTO, EmployeeDTO employeeDTO) {
         this.amount = amount;
-        this.employees = employees;
-        this.companies = companies;
+        this.companyDTO = companyDTO;
+        this.employeeDTO = employeeDTO;
     }
 
     public Long getBonusId() {
@@ -38,24 +32,24 @@ public class BonusDTO {
         this.amount = amount;
     }
 
-    public List<EmployeeDTO> getEmployees() {
-        return employees;
+    public CompanyDTO getCompany() {
+        return companyDTO;
     }
 
-    public void setEmployees(List<EmployeeDTO> employees) {
-        this.employees = employees;
+    public void setCompanyDTO(CompanyDTO company) {
+        this.companyDTO = company;
     }
 
-    public List<CompanyDTO> getCompanies() {
-        return companies;
+    public EmployeeDTO getEmployee() {
+        return employeeDTO;
     }
 
-    public void setCompanies(List<CompanyDTO> companies) {
-        this.companies = companies;
+    public void setEmployeeDTO(EmployeeDTO employee) {
+        this.employeeDTO = employee;
     }
 
     @Override
     public String toString() {
-        return "BonusDTO{" + "bonusId=" + bonusId + ", amount=" + amount + ", employees=" + employees + ", companies=" + companies + '}';
+        return "BonusDTO{" + "bonusId=" + bonusId + ", amount=" + amount + ", company=" + companyDTO + ", employee=" + employeeDTO + '}';
     }
 }

@@ -40,8 +40,8 @@ public class ModelMapperConfiguration {
         modelMapper.typeMap(Bonus.class, BonusDTO.class).addMappings(mapper -> {
             mapper.map(Bonus::getBonusId, BonusDTO::setBonusId);
             mapper.map(Bonus::getAmount, BonusDTO::setAmount);
-            mapper.map(Bonus::getCompanies, BonusDTO::setCompanies);
-            mapper.map(Bonus::getEmployees, BonusDTO::setEmployees);
+            mapper.map(Bonus::getCompany, BonusDTO::setCompanyDTO);
+            mapper.map(Bonus::getEmployee, BonusDTO::setEmployeeDTO);
         });
 
 
