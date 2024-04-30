@@ -1,7 +1,6 @@
 package com.rentzosc.company.project.controllers;
 
 import com.rentzosc.company.project.dtos.BonusDTO;
-import com.rentzosc.company.project.dtos.EmployeeDTO;
 import com.rentzosc.company.project.entities.Bonus;
 import com.rentzosc.company.project.services.BonusService;
 import org.modelmapper.ModelMapper;
@@ -56,8 +55,7 @@ public class BonusController {
 
     @PatchMapping("/{bonusId}")
     public ResponseEntity<BonusDTO> updateBonus(@PathVariable Long bonusId, @RequestBody BonusDTO bonus) {
-        Bonus convertedBonus = convertDtoToBonus(bonus);
-        BonusDTO updatedBonus = bonusService.updateBonus(bonusId, convertedBonus);
+        BonusDTO updatedBonus = bonusService.updateBonus(bonusId, bonus);
 
         return ResponseEntity.ok(updatedBonus);
     }

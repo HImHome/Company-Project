@@ -27,13 +27,14 @@ public class CompanyService {
     }
 
 
-    public Company convertDtoToCompany(CompanyDTO companyDTO) {
-        return modelMapper.map(companyDTO, Company.class);
+    public Company convertDtoToCompany(CompanyDTO company) {
+        return modelMapper.map(company, Company.class);
 
     }
 
-    public CompanyDTO addCompany(Company company) {
-        Company savedCompany =  companyRepository.save(company);
+    public CompanyDTO addCompany(CompanyDTO company) {
+        Company convertedCompany = convertDtoToCompany(company);
+        Company savedCompany =  companyRepository.save(convertedCompany);
 
         return convertCompanyToDto(savedCompany);
     }
@@ -58,7 +59,7 @@ public class CompanyService {
         }
     }
 
-    public CompanyDTO updateCompany(Long companyId, Company companyDetails) {
+    public CompanyDTO updateCompany(Long companyId, CompanyDTO companyDetails) {
         return companyRepository.findById(companyId).map(company -> {
             modelMapper.map(companyDetails, company);
             company.setCompanyId(companyId);

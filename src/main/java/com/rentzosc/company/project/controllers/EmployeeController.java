@@ -29,13 +29,13 @@ public class EmployeeController {
         return modelMapper.map(employee, EmployeeDTO.class);
     }
 
-    private final Employee convertDtoToEmployee(EmployeeDTO employeeDTO) {
+    private Employee convertDtoToEmployee(EmployeeDTO employeeDTO) {
         return modelMapper.map(employeeDTO, Employee.class);
     }
 
     @PostMapping
-    public ResponseEntity<EmployeeDTO> addEmployee(@RequestBody EmployeeDTO employeeDTO) {
-        EmployeeDTO savedEmployeeDto = employeeService.addEmployee(employeeDTO);
+    public ResponseEntity<EmployeeDTO> addEmployee(@RequestBody EmployeeDTO employee) {
+        EmployeeDTO savedEmployeeDto = employeeService.addEmployee(employee);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedEmployeeDto);
     }
@@ -58,8 +58,7 @@ public class EmployeeController {
     }
 
     @PatchMapping("/{employeeId}")
-    public ResponseEntity<EmployeeDTO> updateEmployee(@PathVariable Long employeeId, @RequestBody EmployeeDTO employeeDTO) {
-        Employee employee = convertDtoToEmployee(employeeDTO);
+    public ResponseEntity<EmployeeDTO> updateEmployee(@PathVariable Long employeeId, @RequestBody EmployeeDTO employee) {
         EmployeeDTO updatedEmployeeDto = employeeService.updateEmployee(employeeId, employee);
 
         return ResponseEntity.ok(updatedEmployeeDto);

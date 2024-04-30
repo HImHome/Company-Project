@@ -10,11 +10,11 @@ public class Bonus {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long bonusId;
     private float amount;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")
     private Company company;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "employee_id")
     private Employee employee;
 

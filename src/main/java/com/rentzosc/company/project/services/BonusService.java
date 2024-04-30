@@ -25,13 +25,13 @@ public class BonusService {
         return modelMapper.map(bonus, BonusDTO.class);
     }
 
-    private Bonus converDtoToBonus (BonusDTO bonusDTO) {
-        return modelMapper.map(bonusDTO, Bonus.class);
+    private Bonus converDtoToBonus (BonusDTO bonus) {
+        return modelMapper.map(bonus, Bonus.class);
     }
 
-    public BonusDTO addBonus (BonusDTO bonusDTO) {
-        Bonus bonus = converDtoToBonus(bonusDTO);
-        Bonus savedBonus = bonusRepository.save(bonus);
+    public BonusDTO addBonus (BonusDTO bonus) {
+        Bonus convertedBonus = converDtoToBonus(bonus);
+        Bonus savedBonus = bonusRepository.save(convertedBonus);
 
         return convertBonusToDto(savedBonus);
     }
@@ -56,7 +56,7 @@ public class BonusService {
         bonusRepository.deleteById(bonusId);
     }
 
-    public BonusDTO updateBonus(Long bonusId, Bonus bonusDetails) {
+    public BonusDTO updateBonus(Long bonusId, BonusDTO bonusDetails) {
         return bonusRepository.findById(bonusId).map(bonus -> {
             modelMapper.map(bonusDetails, bonus);
             bonus.setBonusId(bonusId);

@@ -4,105 +4,104 @@ package com.rentzosc.company.project.dtos;
 import java.time.LocalDate;
 
 public class EmployeeDTO {
-    private Long employeeIdDTO;
-    private Long salaryDTO;
-    private String firstNameDTO;
-    private String lastNameDTO;
-    private String emailDTO;
-    private LocalDate hireDateDTO;
-    private String vacationDaysDTO;
-    private String employeeAgeDTO;
-    private CompanyDTO companyDTO;
+    private Long employeeId;
+    private Long salary;
+    private String firstName;
+    private String lastName;
+    private String email;
+    private LocalDate hireDate;
+    private String vacationDays;
+    private String employeeAge;
+    private CompanyDTO company;
 
     public EmployeeDTO() {
     }
 
-    public EmployeeDTO(Long salaryDTO, String firstNameDTO, String lastNameDTO, String emailDTO,
-                       LocalDate hireDateDTO, String vacationDaysDTO, String employeeAgeDTO, CompanyDTO companyDTO) {
-        this.salaryDTO = salaryDTO;
-        this.firstNameDTO = firstNameDTO;
-        this.lastNameDTO = lastNameDTO;
-        this.emailDTO = emailDTO;
-        this.hireDateDTO = hireDateDTO;
-        this.vacationDaysDTO = vacationDaysDTO;
-        this.employeeAgeDTO = employeeAgeDTO;
-        this.companyDTO = companyDTO;
+    public EmployeeDTO(Long salary, String firstName, String lastName, String email, LocalDate hireDate, String vacationDays, String employeeAge, CompanyDTO company) {
+        this.salary = salary;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.hireDate = hireDate;
+        this.vacationDays = vacationDays;
+        this.employeeAge = employeeAge;
+        this.company = company;
     }
 
-    public Long getEmployeeIdDTO() {
-        return employeeIdDTO;
+    public Long getEmployeeId() {
+        return employeeId;
     }
 
-    public void setEmployeeIdDTO(Long employeeIdDTO) {
-        this.employeeIdDTO = employeeIdDTO;
+    public void setEmployeeId(Long employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public Long getSalaryDTO() {
-        return salaryDTO;
+    public Long getSalary() {
+        return salary;
     }
 
-    public void setSalaryDTO(Long salaryDTO) {
-        this.salaryDTO = salaryDTO;
+    public void setSalary(Long salary) {
+        this.salary = salary;
     }
 
-    public String getFirstNameDTO() {
-        return firstNameDTO;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirstNameDTO(String firstNameDTO) {
-        this.firstNameDTO = firstNameDTO;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public String getLastNameDTO() {
-        return lastNameDTO;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLastNameDTO(String lastNameDTO) {
-        this.lastNameDTO = lastNameDTO;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
-    public String getEmailDTO() {
-        return emailDTO;
+    public String getEmail() {
+        return email;
     }
 
-    public void setEmailDTO(String emailDTO) {
-        this.emailDTO = emailDTO;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public LocalDate getHireDateDTO() {
-        return hireDateDTO;
+    public LocalDate getHireDate() {
+        return hireDate;
     }
 
-    public void setHireDateDTO(LocalDate hireDateDTO) {
-        this.hireDateDTO = hireDateDTO;
+    public void setHireDate(LocalDate hireDate) {
+        this.hireDate = hireDate;
     }
 
-    public String getVacationDaysDTO() {
-        return vacationDaysDTO;
+    public String getVacationDays() {
+        return vacationDays;
     }
 
-    public void setVacationDaysDTO(String vacationDaysDTO) {
-        this.vacationDaysDTO = vacationDaysDTO;
+    public void setVacationDays(String vacationDays) {
+        this.vacationDays = vacationDays;
     }
 
-    public String getEmployeeAgeDTO() {
-        return employeeAgeDTO;
+    public String getEmployeeAge() {
+        return employeeAge;
     }
 
-    public void setEmployeeAgeDTO(String employeeAgeDTO) {
-        this.employeeAgeDTO = employeeAgeDTO;
+    public void setEmployeeAge(String employeeAge) {
+        this.employeeAge = employeeAge;
     }
 
-    public CompanyDTO getCompanyDTO() {
-        return companyDTO;
+    public CompanyDTO getCompany() {
+        return company;
     }
 
-    public void setCompanyDTO(CompanyDTO companyDTO) {
-        this.companyDTO = companyDTO;
+    public void setCompany(CompanyDTO company) {
+        this.company = company;
     }
 
     @Override
     public String toString() {
-        return "EmployeeDTO{" + "employeeIdDTO=" + employeeIdDTO + ", salaryDTO=" + salaryDTO + ", firstNameDTO='" + firstNameDTO + '\'' + ", lastNameDTO='" + lastNameDTO + '\'' + ", emailDTO='" + emailDTO + '\'' + ", hireDateDTO=" + hireDateDTO + ", vacationDaysDTO='" + vacationDaysDTO + '\'' + ", employeeAgeDTO='" + employeeAgeDTO + '\'' + ", companyDTO=" + companyDTO + '}';
+        return "EmployeeDTO{" + "employeeId=" + employeeId + ", salary=" + salary + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", hireDate=" + hireDate + ", vacationDays='" + vacationDays + '\'' + ", employeeAge='" + employeeAge + '\'' + ", company=" + company + '}';
     }
 }

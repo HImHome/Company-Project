@@ -5,57 +5,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CompanyDTO {
-    private Long companyIdDTO;
-    private String companyNameDTO;
-    private String companyAddressDTO;
-    private String companyPhoneNoDTO;
+    private Long companyId;
+    private String companyName;
+    private String companyAddress;
+    private String companyPhoneNo;
     private List<EmployeeDTO> employees;
-    private BonusDTO bonus;
+    private List<BonusDTO> bonuses;
 
 
     public CompanyDTO() {
+
         this.employees = new ArrayList<>();
+        this.bonuses = new ArrayList<>();
     }
 
-    public CompanyDTO(String companyNameDTO, String companyAddressDTO, String companyPhoneNoDTO,
-                      List<EmployeeDTO> employees,BonusDTO bonus) {
-        this.companyNameDTO = companyNameDTO;
-        this.companyAddressDTO = companyAddressDTO;
-        this.companyPhoneNoDTO = companyPhoneNoDTO;
-        this.employees = employees;
-        this.bonus = bonus;
+
+    public CompanyDTO(String companyName, String companyAddress, String companyPhoneNo, List<EmployeeDTO> employees, List<BonusDTO> bonuses) {
+        this.companyName = companyName;
+        this.companyAddress = companyAddress;
+        this.companyPhoneNo = companyPhoneNo;
+        this.employees = employees != null ? new ArrayList<>(employees) : new ArrayList<>();
+        this.bonuses = bonuses != null ? new ArrayList<>(bonuses) : new ArrayList<>();
     }
 
-    public Long getCompanyIdDTO() {
-        return companyIdDTO;
+    public Long getCompanyId() {
+        return companyId;
     }
 
-    public void setCompanyIdDTO(Long companyIdDTO) {
-        this.companyIdDTO = companyIdDTO;
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
     }
 
-    public String getCompanyNameDTO() {
-        return companyNameDTO;
+    public String getCompanyName() {
+        return companyName;
     }
 
-    public void setCompanyNameDTO(String companyNameDTO) {
-        this.companyNameDTO = companyNameDTO;
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
     }
 
-    public String getCompanyAddressDTO() {
-        return companyAddressDTO;
+    public String getCompanyAddress() {
+        return companyAddress;
     }
 
-    public void setCompanyAddressDTO(String companyAddressDTO) {
-        this.companyAddressDTO = companyAddressDTO;
+    public void setCompanyAddress(String companyAddress) {
+        this.companyAddress = companyAddress;
     }
 
-    public String getCompanyPhoneNoDTO() {
-        return companyPhoneNoDTO;
+    public String getCompanyPhoneNo() {
+        return companyPhoneNo;
     }
 
-    public void setCompanyPhoneNoDTO(String companyPhoneNoDTO) {
-        this.companyPhoneNoDTO = companyPhoneNoDTO;
+    public void setCompanyPhoneNo(String companyPhoneNo) {
+        this.companyPhoneNo = companyPhoneNo;
     }
 
     public List<EmployeeDTO> getEmployees() {
@@ -63,19 +65,14 @@ public class CompanyDTO {
     }
 
     public void setEmployees(List<EmployeeDTO> employees) {
-        this.employees = employees;
+        this.employees = employees != null ? new ArrayList<>(employees) : new ArrayList<>();
     }
 
-    public BonusDTO getBonus() {
-        return bonus;
+    public List<BonusDTO> getBonuses() {
+        return bonuses;
     }
 
-    public void setBonus(BonusDTO bonus) {
-        this.bonus = bonus;
-    }
-
-    @Override
-    public String toString() {
-        return "CompanyDTO{" + "companyIdDTO=" + companyIdDTO + ", companyNameDTO='" + companyNameDTO + '\'' + ", companyAddressDTO='" + companyAddressDTO + '\'' + ", companyPhoneNoDTO='" + companyPhoneNoDTO + '\'' + ", employees=" + employees + ", bonus=" + bonus + '}';
+    public void setBonuses(List<BonusDTO> bonuses) {
+        this.bonuses = bonuses != null ? new ArrayList<>(bonuses) : new ArrayList<>();
     }
 }

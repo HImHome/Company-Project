@@ -41,8 +41,8 @@ public class Company {
         this.companyName = companyName;
         this.companyAddress = companyAddress;
         this.companyPhoneNo = companyPhoneNo;
-        this.employees = employees;
-        this.bonuses = bonuses;
+        this.employees = employees != null ? new ArrayList<>(employees) : new ArrayList<>();
+        this.bonuses = bonuses != null ? new ArrayList<>(bonuses) : new ArrayList<>();
     }
 
 

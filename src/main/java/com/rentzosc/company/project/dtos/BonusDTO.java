@@ -3,17 +3,17 @@ package com.rentzosc.company.project.dtos;
 public class BonusDTO {
     private Long bonusId;
     private float amount;
-    private CompanyDTO companyDTO;
+    private CompanyDTO company;
 
-    private EmployeeDTO employeeDTO;
+    private EmployeeDTO employee;
 
     public BonusDTO() {
     }
 
-    public BonusDTO(float amount, CompanyDTO companyDTO, EmployeeDTO employeeDTO) {
+    public BonusDTO(float amount, CompanyDTO company, EmployeeDTO employee) {
         this.amount = amount;
-        this.companyDTO = companyDTO;
-        this.employeeDTO = employeeDTO;
+        this.company = company;
+        this.employee = employee;
     }
 
     public Long getBonusId() {
@@ -33,23 +33,23 @@ public class BonusDTO {
     }
 
     public CompanyDTO getCompany() {
-        return companyDTO;
+        return company;
     }
 
-    public void setCompanyDTO(CompanyDTO company) {
-        this.companyDTO = company;
+    public void setCompany(CompanyDTO company) {
+        this.company = company;
     }
 
     public EmployeeDTO getEmployee() {
-        return employeeDTO;
+        return employee;
     }
 
-    public void setEmployeeDTO(EmployeeDTO employee) {
-        this.employeeDTO = employee;
+    public void setEmployee(EmployeeDTO employee) {
+        this.employee = employee;
     }
 
     @Override
     public String toString() {
-        return "BonusDTO{" + "bonusId=" + bonusId + ", amount=" + amount + ", company=" + companyDTO + ", employee=" + employeeDTO + '}';
+        return "BonusDTO{" + "bonusId=" + bonusId + ", amount=" + amount + ", company=" + company + ", employee=" + employee + '}';
     }
 }
