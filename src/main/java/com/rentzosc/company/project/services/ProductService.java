@@ -4,6 +4,7 @@ import com.rentzosc.company.project.dtos.ProductDTO;
 import com.rentzosc.company.project.entities.Product;
 import com.rentzosc.company.project.repositories.ProductRepository;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public class ProductService {
     private final ProductRepository productRepository;
     private final ModelMapper modelMapper;
 
+    @Autowired
     public ProductService(ProductRepository productRepository, ModelMapper modelMapper) {
         this.productRepository = productRepository;
         this.modelMapper = modelMapper;
@@ -27,11 +29,11 @@ public class ProductService {
         return modelMapper.map(productDTO, Product.class);
     }
 
-    public ProductDTO addCompany(ProductDTO productDTO) {
-        Product product = convertDtoToProduct(productDTO);
-        Product addProduct = productRepository.save(product);
+    public ProductDTO addProduct(ProductDTO productDTO) {
+        Product convertedProduct = convertDtoToProduct(productDTO);
+        Product savedProduct = productRepository.save(convertedProduct);
 
-        return convertProductToDto(addProduct);
+        return convertProductToDto(savedProduct);
     }
 
     public ProductDTO getProductById(Long productId) {
@@ -42,28 +44,26 @@ public class ProductService {
     }
 
     public List<ProductDTO> getAllProducts() {
-        List<Product> products = productRepository.findAll();
-
-        return products.stream().map(this::convertProductToDto).collect(Collectors.toList());
+        return productRepository.findAll().stream()
+                .map(this::convertProductToDto)
+                .collect(Collectors.toList());
     }
 
-    private void deleteProduct(Long productId) {
-        if(!productRepository.existsById(productId)){
-            throw new RuntimeException("Product " +
-                    "with ID:" + productId + " not found.");
+    public void deleteProduct(Long productId) {
+        if (productRepository.existsById(productId)) {
+            productRepository.deleteById(productId);
+        } else {
+            throw new RuntimeException("Product with id: " + productId + " not found.");
         }
-
-        productRepository.deleteById(productId);
     }
 
-    public ProductDTO updateProduct(Long productId, ProductDTO productDTO) {
-        Product product = productRepository.findById(productId).orElseThrow(() -> new RuntimeException("Product with " +
-                "ID:" + productId + " not found."));
+    public ProductDTO updateProduct(Long productId, ProductDTO productDetails) {
+        return productRepository.findById(productId).map(product -> {
+            modelMapper.map(productDetails, product);
+            product.setProductId(productId);
+            Product updatedProduct = productRepository.save(product);
 
-        modelMapper.map(productDTO, product);
-        Product updatedProduct = productRepository.save(product);
-
-        return convertProductToDto(updatedProduct);
+            return convertProductToDto(updatedProduct);
+        }).orElseThrow(() -> new RuntimeException("Product with id: " + productId + " not found."));
     }
-
 }

@@ -1,56 +1,54 @@
 package com.rentzosc.company.project.dtos;
 
 public class ProductDTO {
-
-
-    private Long productIdDTO;
-    private String productNameDTO;
-    private String productDescriptionDTO;
-    private String productBarcodeDTO;
+    private Long productId;
+    private String productName;
+    private String productDescription;
+    private String productBarcode;
 
     public ProductDTO() {
     }
 
-    public ProductDTO(String productNameDTO, String productDescriptionDTO, String productBarcodeDTO) {
-        this.productNameDTO = productNameDTO;
-        this.productDescriptionDTO = productDescriptionDTO;
-        this.productBarcodeDTO = productBarcodeDTO;
+    public ProductDTO(String productName, String productDescription, String productBarcode) {
+        this.productName = productName;
+        this.productDescription = productDescription;
+        this.productBarcode = productBarcode;
     }
 
-    public Long getProductIdDTO() {
-        return productIdDTO;
+    public Long getProductId() {
+        return productId;
     }
 
-    public void setProductIdDTO(Long productIdDTO) {
-        this.productIdDTO = productIdDTO;
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
-    public String getProductNameDTO() {
-        return productNameDTO;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setProductNameDTO(String productNameDTO) {
-        this.productNameDTO = productNameDTO;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
-    public String getProductDescriptionDTO() {
-        return productDescriptionDTO;
+    public String getProductDescription() {
+        return productDescription;
     }
 
-    public void setProductDescriptionDTO(String productDescriptionDTO) {
-        this.productDescriptionDTO = productDescriptionDTO;
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
     }
 
-    public String getProductBarcodeDTO() {
-        return productBarcodeDTO;
+    public String getProductBarcode() {
+        return productBarcode;
     }
 
-    public void setProductBarcodeDTO(String productBarcodeDTO) {
-        this.productBarcodeDTO = productBarcodeDTO;
+    public void setProductBarcode(String productBarcode) {
+        this.productBarcode = productBarcode;
     }
 
     @Override
     public String toString() {
-        return "ProductDTO{" + "productIdDTO=" + productIdDTO + ", productNameDTO='" + productNameDTO + '\'' + ", productDescriptionDTO='" + productDescriptionDTO + '\'' + ", productBarcodeDTO='" + productBarcodeDTO + '\'' + '}';
+        return "ProductDTO{" + "productId=" + productId + ", productName='" + productName + '\'' + ", productDescription='" + productDescription + '\'' + ", productBarcode='" + productBarcode + '\'' + '}';
     }
 }

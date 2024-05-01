@@ -3,64 +3,76 @@ package com.rentzosc.company.project.dtos;
 import java.time.LocalDate;
 
 public class VacationRequestDTO {
-    private Long vacationRequestIdDTO;
-    private Long employeeIdDTO;
-    private LocalDate startDateDTO;
-    private LocalDate endDateDTO;
-    private int vacationDurationDTO;
+    private Long vacationRequestId;
+    private LocalDate startDate;
+    private LocalDate endDate;
+
+    private String status;
+    private int vacationDuration;
+
+    private EmployeeDTO employee;
 
     public VacationRequestDTO() {
     }
 
-    public VacationRequestDTO(Long employeeIdDTO, LocalDate startDateDTO, LocalDate endDateDTO, int vacationDurationDTO) {
-        this.employeeIdDTO = employeeIdDTO;
-        this.startDateDTO = startDateDTO;
-        this.endDateDTO = endDateDTO;
-        this.vacationDurationDTO = vacationDurationDTO;
+    public VacationRequestDTO(EmployeeDTO employee, LocalDate startDate, LocalDate endDate, String status, int vacationDuration) {
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.status = status;
+        this.vacationDuration = vacationDuration;
+        this.employee = employee;
     }
 
-    public Long getVacationRequestIdDTO() {
-        return vacationRequestIdDTO;
+    public Long getVacationRequestId() {
+        return vacationRequestId;
     }
 
-    public void setVacationRequestIdDTO(Long vacationRequestIdDTO) {
-        this.vacationRequestIdDTO = vacationRequestIdDTO;
+    public void setVacationRequestId(Long vacationRequestId) {
+        this.vacationRequestId = vacationRequestId;
     }
 
-    public Long getEmployeeIdDTO() {
-        return employeeIdDTO;
+    public EmployeeDTO getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeIdDTO(Long employeeIdDTO) {
-        this.employeeIdDTO = employeeIdDTO;
+    public void setEmployee(EmployeeDTO employee) {
+        this.employee = employee;
     }
 
-    public LocalDate getStartDateDTO() {
-        return startDateDTO;
+    public LocalDate getStartDate() {
+        return startDate;
     }
 
-    public void setStartDateDTO(LocalDate startDateDTO) {
-        this.startDateDTO = startDateDTO;
+    public void setStartDate(LocalDate startDate) {
+        this.startDate = startDate;
     }
 
-    public LocalDate getEndDateDTO() {
-        return endDateDTO;
+    public LocalDate getEndDate() {
+        return endDate;
     }
 
-    public void setEndDateDTO(LocalDate endDateDTO) {
-        this.endDateDTO = endDateDTO;
+    public void setEndDate(LocalDate endDate) {
+        this.endDate = endDate;
     }
 
-    public int getVacationDurationDTO() {
-        return vacationDurationDTO;
+    public String getStatus() {
+        return status;
     }
 
-    public void setVacationDurationDTO(int vacationDurationDTO) {
-        this.vacationDurationDTO = vacationDurationDTO;
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public int getVacationDuration() {
+        return vacationDuration;
+    }
+
+    public void setVacationDuration(int vacationDuration) {
+        this.vacationDuration = vacationDuration;
     }
 
     @Override
     public String toString() {
-        return "VacationRequestDTO{" + "vacationRequestIdDTO=" + vacationRequestIdDTO + ", employeeIdDTO=" + employeeIdDTO + ", startDateDTO=" + startDateDTO + ", endDateDTO=" + endDateDTO + ", vacationDurationDTO=" + vacationDurationDTO + '}';
+        return "VacationRequestDTO{" + "vacationRequestId=" + vacationRequestId + ", employee=" + employee + ", startDate=" + startDate + ", endDate=" + endDate + ", status='" + status + '\'' + ", vacationDuration=" + vacationDuration + '}';
     }
 }

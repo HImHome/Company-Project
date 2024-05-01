@@ -3,6 +3,7 @@ package com.rentzosc.company.project.services;
 import com.rentzosc.company.project.dtos.VacationRequestDTO;
 import com.rentzosc.company.project.entities.VacationRequest;
 import com.rentzosc.company.project.repositories.VacationRequestRepository;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,61 +16,59 @@ public class VacationRequestService {
     private final VacationRequestRepository vacationRequestRepository;
     private final ModelMapper modelMapper;
 
-
     @Autowired
     public VacationRequestService(VacationRequestRepository vacationRequestRepository, ModelMapper modelMapper) {
         this.vacationRequestRepository = vacationRequestRepository;
         this.modelMapper = modelMapper;
     }
 
-    private VacationRequestDTO convertVacationRequestToDto(VacationRequest vacationRequest) {
+    private VacationRequestDTO convertToDto(VacationRequest vacationRequest) {
         return modelMapper.map(vacationRequest, VacationRequestDTO.class);
     }
 
-    private VacationRequest convertDtoToVacationRequest(VacationRequestDTO vacationRequestDTO) {
+    private VacationRequest convertToEntity(VacationRequestDTO vacationRequestDTO) {
         return modelMapper.map(vacationRequestDTO, VacationRequest.class);
     }
 
-    public VacationRequestDTO createVacationRequest(VacationRequestDTO vacationRequestDTO) {
-        VacationRequest vacationRequest = convertDtoToVacationRequest(vacationRequestDTO);
+    @Transactional
+    public VacationRequestDTO addVacationRequest(VacationRequestDTO vacationRequestDTO) {
+        VacationRequest vacationRequest = convertToEntity(vacationRequestDTO);
         VacationRequest savedVacationRequest = vacationRequestRepository.save(vacationRequest);
 
-        return convertVacationRequestToDto(savedVacationRequest);
+        return convertToDto(savedVacationRequest);
     }
 
-    public VacationRequestDTO getVacationRequestById(Long vacationRequestId) {
-        VacationRequest vacationRequest =
-                vacationRequestRepository.findById(vacationRequestId).orElseThrow(() -> new RuntimeException("The " +
-                        "request with ID:" + vacationRequestId + " does not exist."));
+    @Transactional
+    public VacationRequestDTO getVacationRequestById(Long requestId) {
+        VacationRequest vacationRequest = vacationRequestRepository.findById(requestId)
+                .orElseThrow(() -> new RuntimeException("VacationRequest with ID:" + requestId + " not found."));
 
-        return convertVacationRequestToDto(vacationRequest);
+        return convertToDto(vacationRequest);
     }
 
+    @Transactional
     public List<VacationRequestDTO> getAllVacationRequests() {
         List<VacationRequest> vacationRequests = vacationRequestRepository.findAll();
 
-        return vacationRequests.stream().map(this::convertVacationRequestToDto).collect(Collectors.toList());
+        return vacationRequests.stream().map(this::convertToDto).collect(Collectors.toList());
     }
 
-    public void deleteVacationRequest(Long vacationRequestId) {
-        if(!vacationRequestRepository.existsById(vacationRequestId)) {
-            throw new RuntimeException("The " +
-                    "request with ID:" + vacationRequestId + " does not exist.");
+    @Transactional
+    public void deleteVacationRequest(Long requestId) {
+        if (!vacationRequestRepository.existsById(requestId)) {
+            throw new RuntimeException("VacationRequest with id: " + requestId + " not found.");
         }
-
-        vacationRequestRepository.deleteById(vacationRequestId);
+        vacationRequestRepository.deleteById(requestId);
     }
 
-    public VacationRequestDTO updateVacationRequest(Long vacationRequestId, VacationRequestDTO vacationRequestDTO) {
-        VacationRequest vacationRequest =
-                vacationRequestRepository.findById(vacationRequestId).orElseThrow(() -> new RuntimeException("The " +
-                "request with ID:" + vacationRequestId + " does not exist."));
+    @Transactional
+    public VacationRequestDTO updateVacationRequest(Long requestId, VacationRequestDTO vacationRequestDetails) {
+        return vacationRequestRepository.findById(requestId).map(vacationRequest -> {
+            modelMapper.map(vacationRequestDetails, vacationRequest);
+            vacationRequest.setVacationRequestId(requestId);
+            VacationRequest updatedVacationRequest = vacationRequestRepository.save(vacationRequest);
 
-        modelMapper.map(vacationRequestDTO, vacationRequest);
-        VacationRequest updatedVacationRequest = vacationRequestRepository.save(vacationRequest);
-
-        return convertVacationRequestToDto(updatedVacationRequest);
+            return convertToDto(updatedVacationRequest);
+        }).orElseThrow(() -> new RuntimeException("VacationRequest with id: " + requestId + " not found."));
     }
 }
-
-

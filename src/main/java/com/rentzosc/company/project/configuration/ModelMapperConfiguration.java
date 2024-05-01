@@ -1,17 +1,10 @@
 package com.rentzosc.company.project.configuration;
 
-import com.rentzosc.company.project.dtos.BonusDTO;
-import com.rentzosc.company.project.dtos.CompanyDTO;
-import com.rentzosc.company.project.dtos.EmployeeDTO;
-import com.rentzosc.company.project.entities.Bonus;
-import com.rentzosc.company.project.entities.Company;
-import com.rentzosc.company.project.entities.Employee;
+import com.rentzosc.company.project.dtos.*;
+import com.rentzosc.company.project.entities.*;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 @Configuration
 public class ModelMapperConfiguration {
@@ -26,12 +19,6 @@ public class ModelMapperConfiguration {
             mapper.map(Company::getCompanyName, CompanyDTO::setCompanyName);
             mapper.map(Company::getCompanyAddress, CompanyDTO::setCompanyAddress);
             mapper.map(Company::getCompanyPhoneNo, CompanyDTO::setCompanyPhoneNo);
-            mapper.map(src -> src.getEmployees() != null ? src.getEmployees().stream()
-                    .map(employee -> modelMapper.map(employee, EmployeeDTO.class))
-                    .collect(Collectors.toList()) : new ArrayList<>(), CompanyDTO::setEmployees);
-            mapper.map(src -> src.getBonuses() != null ? src.getBonuses().stream()
-                    .map(bonus -> modelMapper.map(bonus, BonusDTO.class))
-                    .collect(Collectors.toList()) : new ArrayList<>(), CompanyDTO::setBonuses);
         });
 
 
@@ -52,6 +39,22 @@ public class ModelMapperConfiguration {
             mapper.map(Bonus::getAmount, BonusDTO::setAmount);
             mapper.map(Bonus::getCompany, BonusDTO::setCompany);
             mapper.map(Bonus::getEmployee, BonusDTO::setEmployee);
+        });
+
+        modelMapper.typeMap(VacationRequest.class, VacationRequestDTO.class).addMappings(mapper -> {
+            mapper.map(VacationRequest::getVacationRequestId, VacationRequestDTO::setVacationRequestId);
+            mapper.map(VacationRequest::getStartDate, VacationRequestDTO::setStartDate);
+            mapper.map(VacationRequest::getEndDate, VacationRequestDTO::setEndDate);
+            mapper.map(VacationRequest::getStatus, VacationRequestDTO::setStatus);
+            mapper.map(VacationRequest::getVacationDuration, VacationRequestDTO::setVacationDuration);
+            mapper.map(VacationRequest::getEmployee, VacationRequestDTO::setEmployee);
+        });
+
+        modelMapper.typeMap(Product.class, ProductDTO.class).addMappings(mapper -> {
+            mapper.map(Product::getProductId, ProductDTO::setProductId);
+            mapper.map(Product::getProductName, ProductDTO::setProductName);
+            mapper.map(Product::getProductBarcode, ProductDTO::setProductBarcode);
+            mapper.map(Product::getProductDescription, ProductDTO::setProductDescription);
         });
 
 

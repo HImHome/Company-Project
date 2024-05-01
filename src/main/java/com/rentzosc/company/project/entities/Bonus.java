@@ -8,7 +8,9 @@ import jakarta.persistence.*;
 public class Bonus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long bonusId;
+    @Column(name = "amount")
     private float amount;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id")

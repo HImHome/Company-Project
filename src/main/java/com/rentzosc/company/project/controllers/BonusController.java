@@ -1,9 +1,7 @@
 package com.rentzosc.company.project.controllers;
 
 import com.rentzosc.company.project.dtos.BonusDTO;
-import com.rentzosc.company.project.entities.Bonus;
 import com.rentzosc.company.project.services.BonusService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,25 +13,15 @@ import java.util.List;
 @RequestMapping("/api/bonuses")
 public class BonusController {
     private final BonusService bonusService;
-    private final ModelMapper modelMapper;
 
     @Autowired
-    public BonusController(BonusService bonusService, ModelMapper modelMapper) {
+    public BonusController(BonusService bonusService) {
         this.bonusService = bonusService;
-        this.modelMapper = modelMapper;
-    }
-
-    private BonusDTO convertBonusToDto(Bonus bonus) {
-        return modelMapper.map(bonus, BonusDTO.class);
-    }
-
-    private Bonus convertDtoToBonus(BonusDTO bonusDTO) {
-        return modelMapper.map(bonusDTO, Bonus.class);
     }
 
     @PostMapping
-    public ResponseEntity<BonusDTO> addBonus(@RequestBody BonusDTO bonus) {
-        BonusDTO savedBonus = bonusService.addBonus(bonus);
+    public ResponseEntity<BonusDTO> addBonus(@RequestBody BonusDTO bonusDTO) {
+        BonusDTO savedBonus = bonusService.addBonus(bonusDTO);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(savedBonus);
     }

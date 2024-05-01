@@ -1,19 +1,20 @@
 package com.rentzosc.company.project.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 
 @Entity
+@Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
+    @Column(name = "id")
     private Long productId;
+    @Column(name = "name")
     private String productName;
+    @Column(name = "barcode")
     private String productBarcode;
+    @Column(name = "description")
     private String productDescription;
 
 

@@ -1,9 +1,7 @@
 package com.rentzosc.company.project.controllers;
 
 import com.rentzosc.company.project.dtos.EmployeeDTO;
-import com.rentzosc.company.project.entities.Employee;
 import com.rentzosc.company.project.services.EmployeeService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,20 +15,10 @@ import java.util.List;
 @RequestMapping("/api/employees")
 public class EmployeeController {
     private final EmployeeService employeeService;
-    private final ModelMapper modelMapper;
 
     @Autowired
-    public EmployeeController(EmployeeService employeeService, ModelMapper modelMapper) {
+    public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
-        this.modelMapper = modelMapper;
-    }
-
-    private EmployeeDTO convertEmployeeToDto(Employee employee) {
-        return modelMapper.map(employee, EmployeeDTO.class);
-    }
-
-    private Employee convertDtoToEmployee(EmployeeDTO employeeDTO) {
-        return modelMapper.map(employeeDTO, Employee.class);
     }
 
     @PostMapping
