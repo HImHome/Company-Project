@@ -57,6 +57,12 @@ public class ModelMapperConfiguration {
             mapper.map(Product::getProductDescription, ProductDTO::setProductDescription);
         });
 
+        modelMapper.typeMap(EmployeeProductJunction.class, EmployeeProductJunctionDTO.class).addMappings(mapper -> {
+            mapper.map(EmployeeProductJunction::getEmployeeProductJunctionId, EmployeeProductJunctionDTO::setEmployeeProductJunctionId);
+            mapper.map(EmployeeProductJunction::getEmployee, EmployeeProductJunctionDTO::setEmployee);
+            mapper.map(EmployeeProductJunction::getProduct, EmployeeProductJunctionDTO::setProduct);
+        });
+
 
         return modelMapper;
     }

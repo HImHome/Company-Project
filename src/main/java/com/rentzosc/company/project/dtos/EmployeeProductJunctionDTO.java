@@ -2,48 +2,48 @@ package com.rentzosc.company.project.dtos;
 
 
 public class EmployeeProductJunctionDTO {
-    private Long employeeProductJunctionIdDTO;
+    private Long employeeProductJunctionId;
 
 
-    private EmployeeDTO employeeDTO;
+    private EmployeeDTO employee;
 
 
-    private ProductDTO productDTO;
+    private ProductDTO product;
 
     public EmployeeProductJunctionDTO() {
     }
 
-    public EmployeeProductJunctionDTO(EmployeeDTO employeeDTO, ProductDTO productDTO) {
-        this.employeeDTO = employeeDTO;
-        this.productDTO = productDTO;
+    public EmployeeProductJunctionDTO(EmployeeDTO employee, ProductDTO product) {
+        this.employee = employee;
+        this.product = product;
     }
 
-    public Long getEmployeeProductJunctionIdDTO() {
-        return employeeProductJunctionIdDTO;
+    public Long getEmployeeProductJunctionId() {
+        return employeeProductJunctionId;
     }
 
-    public void setEmployeeProductJunctionIdDTO(Long employeeProductJunctionIdDTO) {
-        this.employeeProductJunctionIdDTO = employeeProductJunctionIdDTO;
+    public void setEmployeeProductJunctionId(Long employeeProductJunctionId) {
+        this.employeeProductJunctionId = employeeProductJunctionId;
     }
 
-    public EmployeeDTO getEmployeeDTO() {
-        return employeeDTO;
+    public EmployeeDTO getEmployee() {
+        return employee;
     }
 
-    public void setEmployeeDTO(EmployeeDTO employeeDTO) {
-        this.employeeDTO = employeeDTO;
+    public void setEmployee(EmployeeDTO employee) {
+        this.employee = employee;
     }
 
-    public ProductDTO getProductDTO() {
-        return productDTO;
+    public ProductDTO getProduct() {
+        return product;
     }
 
-    public void setProductDTO(ProductDTO productDTO) {
-        this.productDTO = productDTO;
+    public void setProduct(ProductDTO product) {
+        this.product = product;
     }
 
     @Override
     public String toString() {
-        return "EmployeeProductJunctionDTO{" + "employeeProductJunctionIdDTO=" + employeeProductJunctionIdDTO + ", employeeDTO=" + employeeDTO + ", productDTO=" + productDTO + '}';
+        return "EmployeeProductJunctionDTO{" + "employeeProductJunctionId=" + employeeProductJunctionId + ", employee=" + employee + ", product=" + product + '}';
     }
 }

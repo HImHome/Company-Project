@@ -4,18 +4,21 @@ import jakarta.persistence.*;
 
 
 @Entity
+@Table(name = "employee_product")
 public class EmployeeProductJunction {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+            @Column(name = "id")
     Long employeeProductJunctionId;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "employee_id")
     private Employee employee;
 
     @ManyToOne
-    @JoinColumn
+    @JoinColumn(name = "product_id")
     private Product product;
+
 
     public EmployeeProductJunction() {
     }

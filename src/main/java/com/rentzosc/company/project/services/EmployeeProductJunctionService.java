@@ -16,8 +16,7 @@ public class EmployeeProductJunctionService {
     private final ModelMapper modelMapper;
 
     @Autowired
-    public EmployeeProductJunctionService(EmployeeProductJunctionRepository employeeProductJunctionRepository,
-                                          ModelMapper modelMapper) {
+    public EmployeeProductJunctionService(EmployeeProductJunctionRepository employeeProductJunctionRepository, ModelMapper modelMapper) {
         this.employeeProductJunctionRepository = employeeProductJunctionRepository;
         this.modelMapper = modelMapper;
     }
@@ -32,43 +31,41 @@ public class EmployeeProductJunctionService {
 
     public EmployeeProductJunctionDTO addEmployeeProductJunction(EmployeeProductJunctionDTO employeeProductJunctionDTO) {
         EmployeeProductJunction employeeProductJunction = convertDtoEmPloyeeProductJunction(employeeProductJunctionDTO);
-        EmployeeProductJunction savedEmployeeProductJunction =
-                employeeProductJunctionRepository.save(employeeProductJunction);
+        EmployeeProductJunction savedEmployeeProductJunction = employeeProductJunctionRepository.save(employeeProductJunction);
 
         return convertEmployeeProductJunctionToDto(savedEmployeeProductJunction);
     }
 
     public EmployeeProductJunctionDTO getEmployeeProductJunctionById(Long employeeProductJunctionId) {
-        EmployeeProductJunction employeeProductJunction =
-                employeeProductJunctionRepository.findById(employeeProductJunctionId).orElseThrow(() ->new  RuntimeException("EmployeeProductJunction with ID: " + employeeProductJunctionId + " not found."));
+        EmployeeProductJunction employeeProductJunction = employeeProductJunctionRepository.findById(employeeProductJunctionId).orElseThrow(() -> new RuntimeException("EmployeeProductJunction with ID: " + employeeProductJunctionId + " not found."));
 
         return convertEmployeeProductJunctionToDto(employeeProductJunction);
     }
 
-    public List<EmployeeProductJunctionDTO> getAllEmployeeProductJunctions(Long employeeProductJunctionId) {
+    public List<EmployeeProductJunctionDTO> getAllEmployeeProductJunctions() {
         List<EmployeeProductJunction> employeeProductJunctions = employeeProductJunctionRepository.findAll();
 
         return employeeProductJunctions.stream().map(this::convertEmployeeProductJunctionToDto).collect(Collectors.toList());
     }
 
     public void deleteEmployeeProductJunction(Long employeeProductJunctionId) {
-        if(!employeeProductJunctionRepository.existsById(employeeProductJunctionId)){
-            throw new RuntimeException("EmployeeProductJunction with ID:" + employeeProductJunctionId + " does not " +
-                    "exist");
+        if (!employeeProductJunctionRepository.existsById(employeeProductJunctionId)) {
+            throw new RuntimeException("EmployeeProductJunction with ID:" + employeeProductJunctionId + " does not " + "exist");
         }
 
         employeeProductJunctionRepository.deleteById(employeeProductJunctionId);
     }
 
     public EmployeeProductJunctionDTO updateEmployeeProductJunction(Long employeeProductJunctionId,
-                                                                    EmployeeProductJunctionDTO employeeProductJunctionDTO) {
-        EmployeeProductJunction employeeProductJunction =
-                employeeProductJunctionRepository.findById(employeeProductJunctionId).orElseThrow(() -> new RuntimeException("EmployeeProductJunction with ID: " + employeeProductJunctionId + " not found."));
+                                                                    EmployeeProductJunctionDTO employeeProductJunctionDetails) {
+        return employeeProductJunctionRepository.findById(employeeProductJunctionId).map(employeeProductJunction -> {
+            modelMapper.map(employeeProductJunctionDetails, employeeProductJunction);
+            employeeProductJunction.setEmployeeProductJunctionId(employeeProductJunctionId);
+            EmployeeProductJunction updatedEmployeeProductJunction =
+                    employeeProductJunctionRepository.save(employeeProductJunction);
 
-        modelMapper.map(employeeProductJunctionDTO, employeeProductJunction);
-
-        EmployeeProductJunction updatedEmployeeProductJunction = employeeProductJunctionRepository.save(employeeProductJunction);
-
-        return convertEmployeeProductJunctionToDto(updatedEmployeeProductJunction);
+            return modelMapper.map(updatedEmployeeProductJunction, EmployeeProductJunctionDTO.class);
+        }).orElseThrow(() -> new RuntimeException("EmployeeProductJunction with id: " + employeeProductJunctionId +
+                " not found."));
     }
 }

@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "employee")
@@ -31,11 +33,14 @@ public class Employee {
     @JoinColumn(name = "company_id")
     private Company company;
 
+    @OneToMany(mappedBy = "employee")
+    private Set<EmployeeProductJunction> employeeProductJunctionSet = new HashSet<>();
+
 
     public Employee() {
     }
 
-    public Employee(String firstName, String lastName, String email, Long salary, LocalDate hireDate, String vacationDays, String employeeAge, Company company) {
+    public Employee(String firstName, String lastName, String email, Long salary, LocalDate hireDate, String vacationDays, String employeeAge, Company company, Set<EmployeeProductJunction> employeeProductJunctionSet) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
@@ -44,6 +49,7 @@ public class Employee {
         this.vacationDays = vacationDays;
         this.employeeAge = employeeAge;
         this.company = company;
+        this.employeeProductJunctionSet = employeeProductJunctionSet;
     }
 
     public Long getEmployeeId() {
@@ -118,8 +124,16 @@ public class Employee {
         this.company = company;
     }
 
+    public Set<EmployeeProductJunction> getEmployeeProductJunctionSet() {
+        return employeeProductJunctionSet;
+    }
+
+    public void setEmployeeProductJunctionSet(Set<EmployeeProductJunction> employeeProductJunctionSet) {
+        this.employeeProductJunctionSet = employeeProductJunctionSet;
+    }
+
     @Override
     public String toString() {
-        return "Employee{" + "employeeId=" + employeeId + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", salary=" + salary + ", hireDate=" + hireDate + ", vacationDays='" + vacationDays + '\'' + ", employeeAge='" + employeeAge + '\'' + ", company=" + company + '}';
+        return "Employee{" + "employeeId=" + employeeId + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", salary=" + salary + ", hireDate=" + hireDate + ", vacationDays='" + vacationDays + '\'' + ", employeeAge='" + employeeAge + '\'' + ", company=" + company + ", employeeProductJunctionSet=" + employeeProductJunctionSet + '}';
     }
 }

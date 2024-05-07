@@ -2,6 +2,9 @@ package com.rentzosc.company.project.entities;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 
 @Entity
 @Table(name = "product")
@@ -17,14 +20,18 @@ public class Product {
     @Column(name = "description")
     private String productDescription;
 
+    @OneToMany(mappedBy = "product")
+    private Set<EmployeeProductJunction> employeeProductJunctionSet = new HashSet<>();
+
 
     public Product() {
     }
 
-    public Product(String productName, String productDescription, String productBarcode) {
+    public Product(String productName, String productBarcode, String productDescription, Set<EmployeeProductJunction> employeeProductJunctionSet) {
         this.productName = productName;
-        this.productDescription = productDescription;
         this.productBarcode = productBarcode;
+        this.productDescription = productDescription;
+        this.employeeProductJunctionSet = employeeProductJunctionSet;
     }
 
     public Long getProductId() {
@@ -43,14 +50,6 @@ public class Product {
         this.productName = productName;
     }
 
-    public String getProductDescription() {
-        return productDescription;
-    }
-
-    public void setProductDescription(String productDescription) {
-        this.productDescription = productDescription;
-    }
-
     public String getProductBarcode() {
         return productBarcode;
     }
@@ -59,8 +58,24 @@ public class Product {
         this.productBarcode = productBarcode;
     }
 
+    public String getProductDescription() {
+        return productDescription;
+    }
+
+    public void setProductDescription(String productDescription) {
+        this.productDescription = productDescription;
+    }
+
+    public Set<EmployeeProductJunction> getEmployeeProductJunctionSet() {
+        return employeeProductJunctionSet;
+    }
+
+    public void setEmployeeProductJunctionSet(Set<EmployeeProductJunction> employeeProductJunctionSet) {
+        this.employeeProductJunctionSet = employeeProductJunctionSet;
+    }
+
     @Override
     public String toString() {
-        return "Product{" + "productId=" + productId + ", productName='" + productName + '\'' + ", productDescription='" + productDescription + '\'' + ", productBarcode='" + productBarcode + '\'' + '}';
+        return "Product{" + "productId=" + productId + ", productName='" + productName + '\'' + ", productBarcode='" + productBarcode + '\'' + ", productDescription='" + productDescription + '\'' + ", employeeProductJunctionSet=" + employeeProductJunctionSet + '}';
     }
 }
